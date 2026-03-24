@@ -1,0 +1,505 @@
+---
+import { resume } from "../../data/resume";
+
+const { name, title, location, email, phone, linkedin, twitter, profileImage, overview, skills, experience, certifications, education, involvement } = resume;
+
+const educationParts = education.split(" | ");
+const eduDegree = educationParts[0];
+const eduField = educationParts[1];
+const eduInstitution = educationParts[2];
+const eduLocation = educationParts[3];
+const eduYear = educationParts[4];
+---
+
+<div data-theme="paper-trail" class="min-h-screen bg-amber-50 dark:bg-stone-900 text-stone-800 dark:text-stone-200 transition-colors duration-300">
+
+  <style>
+    [data-theme="paper-trail"] {
+      font-family: Georgia, "Times New Roman", Times, serif;
+    }
+
+    [data-theme="paper-trail"] .body-text {
+      font-family: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    }
+
+    /* Decorative diamond divider */
+    [data-theme="paper-trail"] .ornamental-divider {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+    }
+
+    [data-theme="paper-trail"] .ornamental-divider::before,
+    [data-theme="paper-trail"] .ornamental-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.3;
+    }
+
+    [data-theme="paper-trail"] .ornamental-divider .diamond-row {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      opacity: 0.45;
+    }
+
+    [data-theme="paper-trail"] .ornamental-divider .diamond {
+      width: 5px;
+      height: 5px;
+      background: currentColor;
+      transform: rotate(45deg);
+      display: inline-block;
+    }
+
+    [data-theme="paper-trail"] .ornamental-divider .diamond-sm {
+      width: 3px;
+      height: 3px;
+      background: currentColor;
+      transform: rotate(45deg);
+      display: inline-block;
+    }
+
+    /* Drop cap for overview */
+    [data-theme="paper-trail"] .drop-cap-wrapper p:first-of-type::first-letter {
+      float: left;
+      font-size: 3.5rem;
+      line-height: 0.8;
+      padding-right: 0.15rem;
+      padding-top: 0.1rem;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      color: #92400e;
+    }
+
+    .dark [data-theme="paper-trail"] .drop-cap-wrapper p:first-of-type::first-letter {
+      color: #d97706;
+    }
+
+    /* Paper texture overlay */
+    [data-theme="paper-trail"] .paper-container {
+      background-color: #fef9ee;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    }
+
+    .dark [data-theme="paper-trail"] .paper-container {
+      background-color: #1c1410;
+    }
+
+    /* Small caps simulation for subtitle */
+    [data-theme="paper-trail"] .small-caps {
+      font-variant: small-caps;
+      letter-spacing: 0.12em;
+    }
+
+    /* Contact bar link styles */
+    [data-theme="paper-trail"] .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: opacity 0.15s;
+    }
+
+    [data-theme="paper-trail"] .contact-link:hover {
+      opacity: 0.7;
+    }
+
+    /* Section heading rule */
+    [data-theme="paper-trail"] .section-heading {
+      font-size: 0.7rem;
+      font-variant: small-caps;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    /* Skill pill */
+    [data-theme="paper-trail"] .skill-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 0.15rem 0.6rem;
+      border: 1px solid currentColor;
+      border-radius: 0;
+      opacity: 0.75;
+      font-family: "Palatino Linotype", Palatino, Georgia, serif;
+      letter-spacing: 0.03em;
+    }
+  </style>
+
+  <!-- Outer page wrapper -->
+  <div class="paper-container min-h-screen py-12 px-4 shadow-inner">
+
+    <!-- Main document card -->
+    <div class="max-w-4xl mx-auto bg-amber-50/80 dark:bg-stone-900/90 shadow-2xl shadow-stone-400/30 dark:shadow-black/60 ring-1 ring-stone-300/40 dark:ring-stone-700/40 px-10 py-12 sm:px-16 sm:py-16">
+
+      <!-- ══════════════════════════════════════
+           HEADER — photo · name · title · contacts
+           ══════════════════════════════════════ -->
+      <header class="flex flex-col items-center text-center mb-2">
+
+        <!-- Profile photo -->
+        <div class="mb-5">
+          <img
+            src={profileImage}
+            alt={name}
+            class="w-28 h-28 rounded-full object-cover object-top shadow-lg ring-4 ring-amber-100 dark:ring-stone-700 shadow-stone-400/40 dark:shadow-black/50"
+          />
+        </div>
+
+        <!-- Name -->
+        <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-stone-900 dark:text-amber-50 leading-tight mb-2" style="font-family: Georgia, 'Times New Roman', serif;">
+          {name}
+        </h1>
+
+        <!-- Title in small caps -->
+        <p class="small-caps text-base sm:text-lg text-amber-800 dark:text-amber-400 mb-5 tracking-widest">
+          {title}
+        </p>
+
+        <!-- Thin rule before contact bar -->
+        <div class="w-full flex items-center gap-3 mb-5">
+          <div class="flex-1 h-px bg-stone-400/30 dark:bg-stone-600/50"></div>
+          <span class="text-stone-400 dark:text-stone-600 text-xs select-none">✦</span>
+          <div class="flex-1 h-px bg-stone-400/30 dark:bg-stone-600/50"></div>
+        </div>
+
+        <!-- Contact info row -->
+        <div class="flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs text-stone-600 dark:text-stone-400 body-text">
+
+          <!-- Location -->
+          <span class="contact-link">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            {location}
+          </span>
+
+          <!-- Email -->
+          <a href={`mailto:${email}`} class="contact-link hover:text-amber-700 dark:hover:text-amber-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+            {email}
+          </a>
+
+          <!-- Phone -->
+          <a href={`tel:${phone}`} class="contact-link hover:text-amber-700 dark:hover:text-amber-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            {phone}
+          </a>
+
+          <!-- LinkedIn -->
+          <a href={linkedin} target="_blank" rel="noopener noreferrer" class="contact-link hover:text-amber-700 dark:hover:text-amber-300">
+            <svg role="img" viewBox="0 0 24 24" class="w-3 h-3 shrink-0 fill-current" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            LinkedIn
+          </a>
+
+          <!-- X / Twitter -->
+          <a href={twitter} target="_blank" rel="noopener noreferrer" class="contact-link hover:text-amber-700 dark:hover:text-amber-300">
+            <svg role="img" viewBox="0 0 24 24" class="w-3 h-3 shrink-0 fill-current" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+            </svg>
+            X / Twitter
+          </a>
+
+        </div>
+
+      </header>
+
+      <!-- ══════════════════════════════════════
+           PROFESSIONAL OVERVIEW
+           ══════════════════════════════════════ -->
+      <section class="mt-8">
+
+        <!-- Section heading with ornamental divider -->
+        <div class="ornamental-divider text-stone-500 dark:text-stone-500">
+          <div class="diamond-row">
+            <span class="diamond-sm"></span>
+            <span class="diamond"></span>
+            <span class="section-heading text-stone-600 dark:text-stone-400 px-3">Professional Overview</span>
+            <span class="diamond"></span>
+            <span class="diamond-sm"></span>
+          </div>
+        </div>
+
+        <!-- Summary with drop cap -->
+        <div class="drop-cap-wrapper text-sm leading-relaxed text-stone-700 dark:text-stone-300 body-text mb-4">
+          <p set:html={overview.summary} />
+        </div>
+
+        <!-- Highlights as an indented list -->
+        <ul class="mt-3 space-y-1.5 pl-5 body-text">
+          {overview.highlights.map((highlight) => (
+            <li class="text-sm text-stone-600 dark:text-stone-400 leading-relaxed relative before:content-['·'] before:absolute before:-left-3 before:text-amber-700 dark:before:text-amber-500 before:font-bold">
+              {highlight}
+            </li>
+          ))}
+        </ul>
+
+      </section>
+
+      <!-- ══════════════════════════════════════
+           EXPERIENCE
+           ══════════════════════════════════════ -->
+      <section class="mt-8">
+
+        <div class="ornamental-divider text-stone-500 dark:text-stone-500">
+          <div class="diamond-row">
+            <span class="diamond-sm"></span>
+            <span class="diamond"></span>
+            <span class="section-heading text-stone-600 dark:text-stone-400 px-3">Professional Experience</span>
+            <span class="diamond"></span>
+            <span class="diamond-sm"></span>
+          </div>
+        </div>
+
+        <div class="space-y-7">
+          {experience.map((job) => (
+            <div>
+              <!-- Company · Period row -->
+              <div class="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5 mb-0.5">
+                <span class="font-bold text-base text-stone-900 dark:text-amber-50" style="font-family: Georgia, 'Times New Roman', serif;">
+                  {job.company}
+                </span>
+                <span class="text-xs text-stone-500 dark:text-stone-500 body-text shrink-0 italic">
+                  {job.period}
+                </span>
+              </div>
+
+              <!-- Role · Location row -->
+              <div class="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5 mb-2">
+                <span class="text-sm italic text-amber-800 dark:text-amber-400 body-text">
+                  {job.title}
+                </span>
+                <span class="text-xs text-stone-500 dark:text-stone-500 body-text shrink-0">
+                  {job.location}
+                </span>
+              </div>
+
+              <!-- Bullets -->
+              <ul class="pl-5 space-y-1">
+                {job.bullets.map((bullet) => (
+                  <li class="text-sm text-stone-600 dark:text-stone-400 leading-relaxed body-text relative before:content-['—'] before:absolute before:-left-4 before:text-amber-600/60 dark:before:text-amber-600/50 before:text-xs before:top-0.5">
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+      </section>
+
+      <!-- ══════════════════════════════════════
+           CERTIFICATIONS
+           ══════════════════════════════════════ -->
+      <section class="mt-8">
+
+        <div class="ornamental-divider text-stone-500 dark:text-stone-500">
+          <div class="diamond-row">
+            <span class="diamond-sm"></span>
+            <span class="diamond"></span>
+            <span class="section-heading text-stone-600 dark:text-stone-400 px-3">Certifications</span>
+            <span class="diamond"></span>
+            <span class="diamond-sm"></span>
+          </div>
+        </div>
+
+        <ul class="space-y-2">
+          {certifications.map((cert) => {
+            const parts = cert.split(" | ");
+            const certName = parts[0];
+            const certIssuer = parts[1];
+            const certYear = parts[2];
+            return (
+              <li class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5 text-sm body-text">
+                <span class="text-stone-700 dark:text-stone-300 leading-snug">
+                  {certName}
+                  {certIssuer && (
+                    <span class="text-stone-500 dark:text-stone-500 italic"> — {certIssuer}</span>
+                  )}
+                </span>
+                {certYear && (
+                  <span class="text-xs text-stone-400 dark:text-stone-600 shrink-0 tabular-nums">{certYear}</span>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+
+      </section>
+
+      <!-- ══════════════════════════════════════
+           EDUCATION
+           ══════════════════════════════════════ -->
+      <section class="mt-8">
+
+        <div class="ornamental-divider text-stone-500 dark:text-stone-500">
+          <div class="diamond-row">
+            <span class="diamond-sm"></span>
+            <span class="diamond"></span>
+            <span class="section-heading text-stone-600 dark:text-stone-400 px-3">Education</span>
+            <span class="diamond"></span>
+            <span class="diamond-sm"></span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">
+          <div>
+            <span class="font-bold text-base text-stone-900 dark:text-amber-50 body-text" style="font-family: Georgia, 'Times New Roman', serif;">
+              {eduDegree}{eduField ? ` — ${eduField}` : ""}
+            </span>
+            <p class="text-sm italic text-amber-800 dark:text-amber-400 body-text mt-0.5">
+              {eduInstitution}
+            </p>
+            {eduLocation && (
+              <p class="text-xs text-stone-500 dark:text-stone-500 body-text">{eduLocation}</p>
+            )}
+          </div>
+          {eduYear && (
+            <span class="text-xs text-stone-400 dark:text-stone-600 shrink-0 tabular-nums self-start">{eduYear}</span>
+          )}
+        </div>
+
+      </section>
+
+      <!-- ══════════════════════════════════════
+           INVOLVEMENT
+           ══════════════════════════════════════ -->
+      <section class="mt-8">
+
+        <div class="ornamental-divider text-stone-500 dark:text-stone-500">
+          <div class="diamond-row">
+            <span class="diamond-sm"></span>
+            <span class="diamond"></span>
+            <span class="section-heading text-stone-600 dark:text-stone-400 px-3">Community Involvement</span>
+            <span class="diamond"></span>
+            <span class="diamond-sm"></span>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5 mb-0.5">
+            <span class="font-bold text-base text-stone-900 dark:text-amber-50" style="font-family: Georgia, 'Times New Roman', serif;">
+              {involvement.organization}
+            </span>
+            <span class="text-xs text-stone-500 dark:text-stone-500 body-text shrink-0 italic">
+              {involvement.period}
+            </span>
+          </div>
+
+          <div class="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5 mb-2">
+            <span class="text-sm italic text-amber-800 dark:text-amber-400 body-text">
+              {involvement.role}
+            </span>
+            <span class="text-xs text-stone-500 dark:text-stone-500 body-text shrink-0">
+              {involvement.location}
+            </span>
+          </div>
+
+          <ul class="pl-5 space-y-1">
+            {involvement.bullets.map((bullet) => (
+              <li class="text-sm text-stone-600 dark:text-stone-400 leading-relaxed body-text relative before:content-['—'] before:absolute before:-left-4 before:text-amber-600/60 dark:before:text-amber-600/50 before:text-xs before:top-0.5">
+                {bullet}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+      </section>
+
+      <!-- ══════════════════════════════════════
+           SKILLS GRID
+           ══════════════════════════════════════ -->
+      <section class="mt-8">
+
+        <div class="ornamental-divider text-stone-500 dark:text-stone-500">
+          <div class="diamond-row">
+            <span class="diamond-sm"></span>
+            <span class="diamond"></span>
+            <span class="section-heading text-stone-600 dark:text-stone-400 px-3">Technical Skills</span>
+            <span class="diamond"></span>
+            <span class="diamond-sm"></span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+          <!-- Programming -->
+          <div>
+            <h4 class="section-heading text-stone-500 dark:text-stone-500 mb-2.5" style="font-size: 0.6rem;">
+              Programming &amp; Frameworks
+            </h4>
+            <div class="flex flex-wrap gap-1.5">
+              {skills.programming.map((skill) => (
+                <span class="skill-tag text-stone-600 dark:text-stone-400 border-stone-300 dark:border-stone-700">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <!-- Cloud & DevOps -->
+          <div>
+            <h4 class="section-heading text-stone-500 dark:text-stone-500 mb-2.5" style="font-size: 0.6rem;">
+              Cloud &amp; DevOps
+            </h4>
+            <div class="flex flex-wrap gap-1.5">
+              {skills.cloudDevops.map((skill) => (
+                <span class="skill-tag text-stone-600 dark:text-stone-400 border-stone-300 dark:border-stone-700">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <!-- Networking -->
+          <div>
+            <h4 class="section-heading text-stone-500 dark:text-stone-500 mb-2.5" style="font-size: 0.6rem;">
+              Networking
+            </h4>
+            <div class="flex flex-wrap gap-1.5">
+              {skills.networking.map((skill) => (
+                <span class="skill-tag text-stone-600 dark:text-stone-400 border-stone-300 dark:border-stone-700">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <!-- AI / ML -->
+          <div>
+            <h4 class="section-heading text-stone-500 dark:text-stone-500 mb-2.5" style="font-size: 0.6rem;">
+              AI &amp; Machine Learning
+            </h4>
+            <div class="flex flex-wrap gap-1.5">
+              {skills.aiMl.map((skill) => (
+                <span class="skill-tag text-stone-600 dark:text-stone-400 border-stone-300 dark:border-stone-700">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- Bottom ornament -->
+      <div class="mt-12 flex justify-center items-center gap-3 text-stone-400/50 dark:text-stone-700">
+        <span class="text-xs select-none">✦</span>
+        <span class="text-xs select-none">✦</span>
+        <span class="text-xs select-none">✦</span>
+      </div>
+
+    </div>
+  </div>
+
+</div>

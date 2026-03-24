@@ -1,0 +1,94 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "Engineering Leader & Solutions Architect with 15+ years of experience in Network Intelligence, Cloud Architecture, and Cyber Security.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Hani Quraishi" />
+    <meta
+      name="keywords"
+      content="Engineering Leader,Solutions Architect,Cloud Architecture,Network Intelligence,DPDK,AWS,DevSecOps,MLOps,Cyber Security"
+    />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="profile" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <slot />
+    <script>
+      // Dark mode handler
+      function initDarkMode() {
+        const stored = localStorage.getItem("darkMode");
+        if (stored === "false") {
+          document.documentElement.classList.remove("dark");
+        } else {
+          document.documentElement.classList.add("dark");
+        }
+      }
+
+      function toggleDarkMode() {
+        const isDark = document.documentElement.classList.toggle("dark");
+        localStorage.setItem("darkMode", String(isDark));
+      }
+
+      // Theme switcher handler
+      function initTheme() {
+        const stored = localStorage.getItem("theme") || "suspended-in-ink";
+        setTheme(stored);
+      }
+
+      function setTheme(theme: string) {
+        document.documentElement.setAttribute("data-theme", theme);
+        localStorage.setItem("theme", theme);
+        // Update active state in selector
+        document.querySelectorAll("[data-theme-btn]").forEach((btn) => {
+          btn.classList.toggle(
+            "active",
+            btn.getAttribute("data-theme-btn") === theme
+          );
+        });
+      }
+
+      // PDF download
+      function downloadPDF() {
+        window.print();
+      }
+
+      // Init
+      initDarkMode();
+      initTheme();
+
+      // Expose to global scope for onclick handlers
+      (window as any).toggleDarkMode = toggleDarkMode;
+      (window as any).setTheme = setTheme;
+      (window as any).downloadPDF = downloadPDF;
+    </script>
+  </body>
+</html>

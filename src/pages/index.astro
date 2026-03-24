@@ -1,0 +1,57 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ThemeSwitcher from "../components/ThemeSwitcher.astro";
+import SuspendedInInk from "../components/themes/SuspendedInInk.astro";
+import PaperTrail from "../components/themes/PaperTrail.astro";
+import TerminalGreen from "../components/themes/TerminalGreen.astro";
+import ArcticMono from "../components/themes/ArcticMono.astro";
+import NeoBrutalist from "../components/themes/NeoBrutalist.astro";
+---
+
+<Layout title="HQ | Engineering Leader & Solutions Architect">
+  <div id="theme-container">
+    <div class="theme-view" data-theme-id="suspended-in-ink">
+      <SuspendedInInk />
+    </div>
+    <div class="theme-view hidden" data-theme-id="paper-trail">
+      <PaperTrail />
+    </div>
+    <div class="theme-view hidden" data-theme-id="terminal-green">
+      <TerminalGreen />
+    </div>
+    <div class="theme-view hidden" data-theme-id="arctic-mono">
+      <ArcticMono />
+    </div>
+    <div class="theme-view hidden" data-theme-id="neo-brutalist">
+      <NeoBrutalist />
+    </div>
+  </div>
+
+  <ThemeSwitcher />
+
+  <script>
+    // Theme visibility controller
+    function showTheme(themeId: string) {
+      document.querySelectorAll(".theme-view").forEach((el) => {
+        el.classList.add("hidden");
+      });
+      const target = document.querySelector(
+        `[data-theme-id="${themeId}"]`
+      );
+      if (target) {
+        target.classList.remove("hidden");
+      }
+    }
+
+    // Override the global setTheme to also toggle visibility
+    const originalSetTheme = (window as any).setTheme;
+    (window as any).setTheme = function (theme: string) {
+      originalSetTheme(theme);
+      showTheme(theme);
+    };
+
+    // Apply on initial load
+    const stored = localStorage.getItem("theme") || "suspended-in-ink";
+    showTheme(stored);
+  </script>
+</Layout>

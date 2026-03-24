@@ -1,0 +1,647 @@
+---
+import { resume } from "../../data/resume";
+
+const skillCategories = [
+  { dir: "programming/", items: resume.skills.programming },
+  { dir: "cloud_devops/", items: resume.skills.cloudDevops },
+  { dir: "networking/", items: resume.skills.networking },
+  { dir: "ai_ml/", items: resume.skills.aiMl },
+];
+
+const educationParts = resume.education.split("|").map((p) => p.trim());
+---
+
+<div data-theme="terminal-green" class="terminal-root">
+  <!-- Scanline overlay -->
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- CRT outer glow vignette -->
+  <div class="crt-vignette" aria-hidden="true"></div>
+
+  <!-- Terminal window -->
+  <div class="terminal-window">
+    <!-- Title bar -->
+    <div class="terminal-titlebar">
+      <div class="window-controls">
+        <span class="dot dot-red"></span>
+        <span class="dot dot-yellow"></span>
+        <span class="dot dot-green"></span>
+      </div>
+      <span class="titlebar-label">bash — resume.sh — 120×40</span>
+      <div class="titlebar-spacer"></div>
+    </div>
+
+    <!-- Terminal body -->
+    <div class="terminal-body">
+
+      <!-- Boot sequence / header -->
+      <div class="section mb-6">
+        <p class="line dim">Last login: Tue Mar 24 00:00:00 2026 on ttys001</p>
+        <p class="line dim">GNU bash, version 5.2.15(1)-release (aarch64-apple-darwin23)</p>
+        <p class="line mb-4">&nbsp;</p>
+
+        <!-- whoami -->
+        <p class="line"><span class="prompt">~$</span> <span class="cmd">whoami</span></p>
+        <div class="output mb-4">
+          <div class="name-block">
+            <span class="name-text">{resume.name}</span>
+          </div>
+          <p class="line mt-1 dim">{resume.title}</p>
+          <p class="line dim">{resume.location}</p>
+        </div>
+
+        <!-- Contact info -->
+        <p class="line"><span class="prompt">~$</span> <span class="cmd">cat</span> <span class="arg">~/.contact</span></p>
+        <div class="output mb-4">
+          <p class="line"><span class="key">email     </span><span class="sep">:</span> <a href={`mailto:${resume.email}`} class="val link">{resume.email}</a></p>
+          <p class="line"><span class="key">phone     </span><span class="sep">:</span> <span class="val">{resume.phone}</span></p>
+          <p class="line"><span class="key">linkedin  </span><span class="sep">:</span> <a href={resume.linkedin} target="_blank" rel="noopener" class="val link">[LinkedIn] → {resume.linkedin.replace("https://", "")}</a></p>
+          <p class="line"><span class="key">twitter   </span><span class="sep">:</span> <a href={resume.twitter} target="_blank" rel="noopener" class="val link">[X/Twitter] → {resume.twitter.replace("https://", "")}</a></p>
+        </div>
+
+        <!-- Profile image -->
+        {resume.profileImage && (
+          <p class="line"><span class="prompt">~$</span> <span class="cmd">display</span> <span class="arg">--filter=phosphor {resume.profileImage}</span></p>
+          <div class="output mb-4">
+            <div class="img-wrapper">
+              <img
+                src={resume.profileImage}
+                alt={resume.name}
+                class="profile-img"
+              />
+              <div class="img-scanlines" aria-hidden="true"></div>
+              <div class="img-overlay" aria-hidden="true"></div>
+            </div>
+            <p class="line dim mt-1">// green phosphor filter applied</p>
+          </div>
+        )}
+      </div>
+
+      <!-- Overview -->
+      <div class="section mb-6">
+        <p class="line"><span class="prompt">~$</span> <span class="cmd">cat</span> <span class="arg">professional_overview.txt</span></p>
+        <div class="output mb-3">
+          <p class="line val" set:html={resume.overview.summary} />
+        </div>
+        <p class="line"><span class="prompt">~$</span> <span class="cmd">cat</span> <span class="arg">highlights.txt</span></p>
+        <div class="output mb-2">
+          {resume.overview.highlights.map((h, i) => (
+            <p class="line">
+              <span class="dim">[{String(i + 1).padStart(2, "0")}]</span> <span class="val">{h}</span>
+            </p>
+          ))}
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="section mb-6">
+        <p class="line"><span class="prompt">~$</span> <span class="cmd">ls</span> <span class="flag">-la</span> <span class="arg">skills/</span></p>
+        <div class="output mb-2">
+          <p class="line dim">total {skillCategories.reduce((a, c) => a + c.items.length, 0)}</p>
+          {skillCategories.map((cat) => (
+            <div class="mb-1">
+              <p class="line">
+                <span class="dim">drwxr-xr-x</span>
+                <span class="key ml-2">{cat.dir}</span>
+              </p>
+              <p class="line ml-4">
+                {cat.items.map((skill, i) => (
+                  <span class="skill-item">{skill}{i < cat.items.length - 1 ? "  " : ""}</span>
+                ))}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Experience -->
+      <div class="section mb-6">
+        <p class="line"><span class="prompt">~$</span> <span class="cmd">ls</span> <span class="flag">-lt</span> <span class="arg">experience/</span></p>
+        <div class="output mb-4 dim">
+          <p class="line">// {resume.experience.length} entries — sorted by date desc</p>
+        </div>
+
+        {resume.experience.map((job, idx) => (
+          <div class="mb-5">
+            <p class="line">
+              <span class="prompt">~$</span>
+              <span class="cmd ml-1">cat</span>
+              <span class="arg ml-1">experience/{job.company.toLowerCase().replace(/[^a-z0-9]+/g, "_")}.log</span>
+            </p>
+            <div class="output">
+              <div class="log-header">
+                <span class="log-index dim">[{String(idx + 1).padStart(2, "0")}]</span>
+                <span class="log-title">{job.title}</span>
+                <span class="dim"> @ </span>
+                <span class="company">{job.company}</span>
+              </div>
+              <p class="line dim">
+                <span class="key">location</span><span class="sep">:</span> {job.location}
+                <span class="ml-4 key">period</span><span class="sep">:</span> {job.period}
+              </p>
+              <div class="mt-1">
+                {job.bullets.map((b) => (
+                  <p class="line bullet-line">
+                    <span class="bullet-arrow dim">→</span> <span class="val">{b}</span>
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Certifications -->
+      <div class="section mb-6">
+        <p class="line"><span class="prompt">~$</span> <span class="cmd">cat</span> <span class="arg">certifications.txt</span></p>
+        <div class="output">
+          {resume.certifications.map((cert, i) => {
+            const parts = cert.split("|").map((p) => p.trim());
+            return (
+              <p class="line">
+                <span class="dim">[cert-{String(i + 1).padStart(2, "0")}]</span>
+                <span class="val ml-2">{parts[0]}</span>
+                {parts[1] && <span class="dim ml-2">• {parts[1]}</span>}
+                {parts[2] && <span class="key ml-2">({parts[2]})</span>}
+              </p>
+            );
+          })}
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="section mb-6">
+        <p class="line"><span class="prompt">~$</span> <span class="cmd">cat</span> <span class="arg">education.txt</span></p>
+        <div class="output">
+          <p class="line">
+            <span class="key">degree    </span><span class="sep">:</span> <span class="val">{educationParts[0]}</span>
+          </p>
+          {educationParts[1] && (
+            <p class="line">
+              <span class="key">major     </span><span class="sep">:</span> <span class="val">{educationParts[1]}</span>
+            </p>
+          )}
+          {educationParts[2] && (
+            <p class="line">
+              <span class="key">university</span><span class="sep">:</span> <span class="val">{educationParts[2]}</span>
+            </p>
+          )}
+          {educationParts[3] && (
+            <p class="line">
+              <span class="key">location  </span><span class="sep">:</span> <span class="val">{educationParts[3]}</span>
+            </p>
+          )}
+          {educationParts[4] && (
+            <p class="line">
+              <span class="key">year      </span><span class="sep">:</span> <span class="val">{educationParts[4]}</span>
+            </p>
+          )}
+        </div>
+      </div>
+
+      <!-- Community Involvement -->
+      <div class="section mb-6">
+        <p class="line"><span class="prompt">~$</span> <span class="cmd">cat</span> <span class="arg">community/{resume.involvement.organization.toLowerCase().replace(/\s+/g, "_")}.log</span></p>
+        <div class="output">
+          <p class="line">
+            <span class="key">org     </span><span class="sep">:</span> <span class="val">{resume.involvement.organization}</span>
+          </p>
+          <p class="line">
+            <span class="key">role    </span><span class="sep">:</span> <span class="val">{resume.involvement.role}</span>
+          </p>
+          <p class="line">
+            <span class="key">period  </span><span class="sep">:</span> <span class="val">{resume.involvement.period}</span>
+          </p>
+          <p class="line">
+            <span class="key">location</span><span class="sep">:</span> <span class="val">{resume.involvement.location}</span>
+          </p>
+          <div class="mt-1">
+            {resume.involvement.bullets.map((b) => (
+              <p class="line bullet-line">
+                <span class="bullet-arrow dim">→</span> <span class="val">{b}</span>
+              </p>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Exit / cursor -->
+      <div class="section">
+        <p class="line"><span class="prompt">~$</span> <span class="cmd">echo</span> <span class="arg">"EOF — end of resume"</span></p>
+        <div class="output mb-2">
+          <p class="line val">EOF — end of resume</p>
+        </div>
+        <p class="line">
+          <span class="prompt">~$</span>
+          <span class="cursor" aria-hidden="true"></span>
+        </p>
+      </div>
+
+    </div><!-- /terminal-body -->
+  </div><!-- /terminal-window -->
+</div>
+
+<style>
+  /* ─── Fonts ─────────────────────────────────────────────── */
+  @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+  /* ─── Root ───────────────────────────────────────────────── */
+  .terminal-root {
+    position: relative;
+    min-height: 100vh;
+    background-color: #0a0a0a;
+    font-family: "JetBrains Mono", "Courier New", Courier, monospace;
+    color: #00ff41;
+    overflow-x: hidden;
+  }
+
+  /* Light mode: dark green bg, bright phosphor text */
+  :global(html:not(.dark)) .terminal-root {
+    background-color: #001a00;
+    color: #00ff41;
+  }
+
+  /* ─── Scanlines ──────────────────────────────────────────── */
+  .scanlines {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 2px,
+      rgba(0, 0, 0, 0.18) 2px,
+      rgba(0, 0, 0, 0.18) 4px
+    );
+    animation: scanline-drift 12s linear infinite;
+  }
+
+  @keyframes scanline-drift {
+    from { background-position: 0 0; }
+    to   { background-position: 0 100px; }
+  }
+
+  /* ─── CRT Vignette ───────────────────────────────────────── */
+  .crt-vignette {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 60%,
+      rgba(0, 0, 0, 0.65) 100%
+    );
+  }
+
+  /* ─── Terminal Window ────────────────────────────────────── */
+  .terminal-window {
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 2rem auto;
+    border: 1px solid #00ff4155;
+    border-radius: 8px;
+    box-shadow:
+      0 0 0 1px #00ff4122,
+      0 0 30px #00ff4118,
+      0 0 60px #00ff410a,
+      inset 0 0 40px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+  }
+
+  /* ─── Title Bar ──────────────────────────────────────────── */
+  .terminal-titlebar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.875rem;
+    background: #111;
+    border-bottom: 1px solid #00ff4130;
+    user-select: none;
+  }
+
+  :global(html:not(.dark)) .terminal-titlebar {
+    background: #002800;
+  }
+
+  .window-controls {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  .dot-red    { background: #ff5f57; box-shadow: 0 0 4px #ff5f5788; }
+  .dot-yellow { background: #febc2e; box-shadow: 0 0 4px #febc2e88; }
+  .dot-green  { background: #28c840; box-shadow: 0 0 4px #28c84088; }
+
+  .titlebar-label {
+    flex: 1;
+    text-align: center;
+    font-size: 0.7rem;
+    color: #00ff4166;
+    letter-spacing: 0.05em;
+  }
+
+  .titlebar-spacer {
+    width: 54px; /* mirror the dots width so label is centered */
+  }
+
+  /* ─── Terminal Body ──────────────────────────────────────── */
+  .terminal-body {
+    padding: 1.5rem 1.75rem;
+    background: #0a0a0a;
+    font-size: 0.82rem;
+    line-height: 1.6;
+  }
+
+  :global(html:not(.dark)) .terminal-body {
+    background: #001200;
+  }
+
+  /* ─── Text primitives ────────────────────────────────────── */
+  .line {
+    display: block;
+    white-space: pre-wrap;
+    word-break: break-word;
+    text-shadow:
+      0 0 4px #00ff4180,
+      0 0 10px #00ff4130;
+  }
+
+  .dim {
+    color: #00aa2a;
+    text-shadow: 0 0 3px #00aa2a40;
+  }
+
+  .prompt {
+    color: #00ff41;
+    font-weight: 700;
+    text-shadow:
+      0 0 6px #00ff4199,
+      0 0 14px #00ff4155;
+  }
+
+  .cmd {
+    color: #80ffaa;
+    text-shadow: 0 0 5px #80ffaa66;
+  }
+
+  .flag {
+    color: #44ddff;
+    text-shadow: 0 0 5px #44ddff44;
+  }
+
+  .arg {
+    color: #ccffcc;
+    text-shadow: 0 0 4px #ccffcc44;
+  }
+
+  .key {
+    color: #00cc33;
+    text-shadow: 0 0 4px #00cc3344;
+  }
+
+  .sep {
+    color: #006611;
+    margin: 0 0.25rem;
+  }
+
+  .val {
+    color: #b3ffcc;
+    text-shadow: 0 0 4px #b3ffcc44;
+  }
+
+  .link {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+  }
+
+  .link:hover {
+    color: #00ff41;
+    text-shadow:
+      0 0 8px #00ff41cc,
+      0 0 20px #00ff4166;
+  }
+
+  .skill-item {
+    color: #80ffb3;
+    text-shadow: 0 0 4px #80ffb355;
+  }
+
+  /* ─── Output indentation ─────────────────────────────────── */
+  .output {
+    padding-left: 1.5rem;
+    border-left: 1px solid #00ff4120;
+    margin-top: 0.15rem;
+  }
+
+  /* ─── Name block ─────────────────────────────────────────── */
+  .name-block {
+    margin: 0.25rem 0;
+  }
+
+  .name-text {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #00ff41;
+    text-shadow:
+      0 0 8px #00ff41cc,
+      0 0 20px #00ff4166,
+      0 0 40px #00ff4133;
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% {
+      text-shadow:
+        0 0 8px #00ff41cc,
+        0 0 20px #00ff4166,
+        0 0 40px #00ff4133;
+    }
+    50% {
+      text-shadow:
+        0 0 12px #00ff41ee,
+        0 0 28px #00ff4199,
+        0 0 55px #00ff4155;
+    }
+  }
+
+  /* ─── Log entries ────────────────────────────────────────── */
+  .log-header {
+    display: block;
+    margin-bottom: 0.1rem;
+  }
+
+  .log-title {
+    color: #00ff41;
+    font-weight: 700;
+    text-shadow: 0 0 6px #00ff4199;
+    margin-left: 0.5rem;
+  }
+
+  .company {
+    color: #44ddff;
+    font-weight: 500;
+    text-shadow: 0 0 5px #44ddff55;
+  }
+
+  .log-index {
+    font-size: 0.75rem;
+  }
+
+  .bullet-line {
+    margin-top: 0.1rem;
+  }
+
+  .bullet-arrow {
+    margin-right: 0.4rem;
+    flex-shrink: 0;
+  }
+
+  /* ─── Profile image ──────────────────────────────────────── */
+  .img-wrapper {
+    position: relative;
+    display: inline-block;
+    margin: 0.4rem 0;
+  }
+
+  .profile-img {
+    display: block;
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #00ff4155;
+    filter:
+      grayscale(100%)
+      sepia(100%)
+      hue-rotate(85deg)
+      saturate(4)
+      brightness(0.75)
+      contrast(1.2);
+    box-shadow:
+      0 0 10px #00ff4155,
+      0 0 25px #00ff4120;
+  }
+
+  .img-scanlines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: 4px;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 3px,
+      rgba(0, 0, 0, 0.35) 3px,
+      rgba(0, 0, 0, 0.35) 4px
+    );
+  }
+
+  .img-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: 4px;
+    background: linear-gradient(
+      135deg,
+      rgba(0, 255, 65, 0.06) 0%,
+      transparent 60%,
+      rgba(0, 255, 65, 0.03) 100%
+    );
+  }
+
+  /* ─── Blinking cursor ────────────────────────────────────── */
+  .cursor {
+    display: inline-block;
+    width: 0.55em;
+    height: 1.1em;
+    background: #00ff41;
+    vertical-align: text-bottom;
+    margin-left: 0.35rem;
+    box-shadow: 0 0 6px #00ff41cc, 0 0 14px #00ff4177;
+    animation: blink 1.1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+
+  /* ─── Section spacing ────────────────────────────────────── */
+  .section {
+    margin-bottom: 1rem;
+  }
+
+  .ml-1 { margin-left: 0.25rem; }
+  .ml-2 { margin-left: 0.5rem; }
+  .ml-4 { margin-left: 1rem; }
+  .mt-1 { margin-top: 0.25rem; }
+  .mt-4 { margin-top: 1rem; }
+  .mb-1 { margin-bottom: 0.25rem; }
+  .mb-2 { margin-bottom: 0.5rem; }
+  .mb-3 { margin-bottom: 0.75rem; }
+  .mb-4 { margin-bottom: 1rem; }
+  .mb-5 { margin-bottom: 1.25rem; }
+  .mb-6 { margin-bottom: 1.5rem; }
+
+  /* ─── Print ──────────────────────────────────────────────── */
+  @media print {
+    .scanlines,
+    .crt-vignette {
+      display: none;
+    }
+
+    .terminal-root {
+      background: #fff;
+      color: #003300;
+    }
+
+    .terminal-window {
+      box-shadow: none;
+      border: 1px solid #ccc;
+      margin: 0;
+      max-width: 100%;
+    }
+
+    .terminal-body {
+      background: #fff;
+    }
+
+    .name-text,
+    .prompt,
+    .line,
+    .cmd,
+    .arg,
+    .val,
+    .key,
+    .dim,
+    .company,
+    .log-title,
+    .skill-item {
+      color: #003300 !important;
+      text-shadow: none !important;
+      animation: none !important;
+    }
+
+    .cursor {
+      display: none;
+    }
+
+    .profile-img {
+      filter: grayscale(100%);
+      box-shadow: none;
+    }
+  }
+</style>

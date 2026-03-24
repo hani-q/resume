@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+  --font-display: "Cal Sans", "Inter", sans-serif;
+}
+
+/* Dark mode base */
+:root {
+  color-scheme: dark light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Print styles for PDF */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  a {
+    color: black !important;
+    text-decoration: underline !important;
+  }
+}
