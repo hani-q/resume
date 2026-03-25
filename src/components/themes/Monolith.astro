@@ -1,0 +1,1590 @@
+---
+import { resume } from "../../data/resume";
+
+const educationParts = resume.education.split("|").map((p: string) => p.trim());
+
+const skillCategories = [
+  { key: "programming", label: "Programming & Frameworks", items: resume.skills.programming },
+  { key: "cloudDevops", label: "Cloud & DevOps", items: resume.skills.cloudDevops },
+  { key: "networking", label: "Networking", items: resume.skills.networking },
+  { key: "aiMl", label: "AI & Machine Learning", items: resume.skills.aiMl },
+];
+
+const totalCompanies = new Set(resume.experience.map((e: any) => e.company)).size;
+const totalCerts = resume.certifications.length;
+
+const sidebarItems = [
+  { label: "Overview", icon: "person", href: "#profile" },
+  { label: "Experience", icon: "work", href: "#experience" },
+  { label: "Skills", icon: "terminal", href: "#skills" },
+  { label: "Connect", icon: "alternate_email", href: "#contact" },
+];
+
+const navItems = [
+  { label: "Overview", icon: "person", href: "#profile" },
+  { label: "Experience", icon: "work", href: "#experience" },
+  { label: "Skills", icon: "terminal", href: "#skills" },
+  { label: "Certifications", icon: "verified", href: "#certifications" },
+  { label: "Education", icon: "school", href: "#education" },
+  { label: "Connect", icon: "alternate_email", href: "#contact" },
+];
+---
+
+<div data-theme="monolith" class="mn-root">
+  <!-- Google Fonts & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
+
+  <!-- Fixed Top Navigation Bar -->
+  <nav class="mn-topnav">
+    <div class="mn-topnav-inner">
+      <a href="#profile" class="mn-topnav-logo">HQ</a>
+      <div class="mn-topnav-links">
+        <a href="#profile" class="mn-topnav-link mn-topnav-link--active">Profile</a>
+        <a href="#experience" class="mn-topnav-link">Experience</a>
+        <a href="#skills" class="mn-topnav-link">Skills</a>
+        <a href="#contact" class="mn-topnav-link">Contact</a>
+      </div>
+      <button class="mn-hamburger" aria-label="Toggle menu" onclick="document.querySelector('.mn-mobile-menu').classList.toggle('mn-mobile-menu--open')">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Desktop Sidebar -->
+  <aside class="mn-sidebar">
+    <div class="mn-sidebar-header">
+      <h1 class="mn-sidebar-name">{resume.name}</h1>
+      <p class="mn-sidebar-title">{resume.title}</p>
+    </div>
+    <nav class="mn-sidebar-nav">
+      {sidebarItems.map((item, i) => (
+        <a href={item.href} class:list={["mn-sidebar-link", { "mn-sidebar-link--active": i === 0 }]}>
+          <span class="material-symbols-outlined" style={i === 0 ? "font-variation-settings: 'FILL' 1;" : ""}>{item.icon}</span>
+          <span>{item.label}</span>
+        </a>
+      ))}
+    </nav>
+  </aside>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mn-mobile-menu">
+    <nav class="mn-mobile-menu-nav">
+      {navItems.map((item) => (
+        <a href={item.href} class="mn-mobile-menu-link" onclick="document.querySelector('.mn-mobile-menu').classList.remove('mn-mobile-menu--open')">
+          <span class="material-symbols-outlined">{item.icon}</span>
+          <span>{item.label}</span>
+        </a>
+      ))}
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <main class="mn-main">
+
+    <!-- Hero Section -->
+    <section id="profile" class="mn-hero">
+      <div class="mn-hero-inner">
+        <span class="mn-hero-label">{resume.title}</span>
+        <h2 class="mn-hero-headline">Architecting <br/> Scalable <br/> Monoliths.</h2>
+        <div class="mn-hero-row">
+          <div class="mn-hero-text">
+            <div class="mn-hero-summary" set:html={resume.overview.summary} />
+            <div class="mn-hero-actions">
+              <a href="#experience" class="mn-btn mn-btn--gradient">View Portfolio</a>
+              <a href="#contact" class="mn-btn mn-btn--outline">Resume</a>
+            </div>
+          </div>
+          <div class="mn-hero-photo-wrap">
+            <img src={resume.profileImage} alt={resume.name} class="mn-hero-photo" loading="eager" />
+            <div class="mn-hero-photo-overlay"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bento Grid -->
+    <section class="mn-bento">
+      <div class="mn-bento-grid">
+        <!-- Card 1: The Monolith Strategy (8 cols) -->
+        <div class="mn-bento-card mn-bento-card--wide mn-bento-card--strategy">
+          <div>
+            <h3 class="mn-bento-strategy-title">The Monolith Strategy</h3>
+            <p class="mn-bento-strategy-desc">Engineering Leader with deep expertise in Network Intelligence, Cloud Architecture, and Cyber Security. Building resilient systems that scale from startup to enterprise across global markets.</p>
+          </div>
+          <div class="mn-bento-strategy-stat">
+            <span class="mn-bento-strategy-number">15+</span>
+            <span class="mn-bento-strategy-label">Years of Deep <br/> Engineering Expertise</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Cloud Native (4 cols) -->
+        <div class="mn-bento-card mn-bento-card--narrow mn-bento-card--variant">
+          <span class="material-symbols-outlined mn-bento-icon">architecture</span>
+          <h4 class="mn-bento-card-title">Cloud Native</h4>
+          <p class="mn-bento-card-desc">AWS, OCI, GCP, OpenStack with triple AWS certifications and Infrastructure as Code expertise</p>
+        </div>
+
+        <!-- Card 3: Team Mentorship (4 cols) -->
+        <div class="mn-bento-card mn-bento-card--narrow mn-bento-card--high">
+          <span class="material-symbols-outlined mn-bento-icon">groups</span>
+          <h4 class="mn-bento-card-title">Team Mentorship</h4>
+          <p class="mn-bento-card-desc">Managing cross-functional engineering teams and establishing Centers of Excellence</p>
+        </div>
+
+        <!-- Card 4: Global Reach (8 cols) -->
+        <div class="mn-bento-card mn-bento-card--wide mn-bento-card--container mn-bento-card--global">
+          <div class="mn-bento-global-inner">
+            <h3 class="mn-bento-global-title">Global Reach</h3>
+            <p class="mn-bento-global-desc">Work experience across UAE, KSA, USA, Sweden, and Pakistan in both startup and enterprise environments</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="mn-experience">
+      <div class="mn-experience-inner">
+        <h2 class="mn-experience-heading">Professional Journey</h2>
+        <div class="mn-experience-list">
+          {resume.experience.map((job: any) => (
+            <div class="mn-exp-item">
+              <div class="mn-exp-date">
+                <p class="mn-exp-period">{job.period}</p>
+              </div>
+              <div class="mn-exp-card-wrap">
+                <div class="mn-exp-card">
+                  <h3 class="mn-exp-title">{job.title}</h3>
+                  <p class="mn-exp-company">{job.company}</p>
+                  <p class="mn-exp-summary">{job.bullets[0]}</p>
+                  {job.bullets.length > 1 && (
+                    <ul class="mn-exp-bullets">
+                      {job.bullets.slice(1).map((bullet: string) => (
+                        <li>{bullet}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="mn-skills">
+      <div class="mn-skills-inner">
+        <div class="mn-skills-header">
+          <div>
+            <h2 class="mn-skills-heading">Technical Proficiency</h2>
+            <p class="mn-skills-subheading">A curated stack of modern technologies honed across 15+ years of engineering.</p>
+          </div>
+          <div class="mn-skills-watermark">SKILLS</div>
+        </div>
+        <div class="mn-skills-grid">
+          {skillCategories.map((cat) => (
+            <div class="mn-skill-group">
+              <h4 class="mn-skill-category">{cat.label}</h4>
+              <div class="mn-skill-pills">
+                {cat.items.map((skill: string) => (
+                  <span class="mn-skill-pill">{skill}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="mn-certifications">
+      <div class="mn-certifications-inner">
+        <div class="mn-skills-header">
+          <div>
+            <h2 class="mn-skills-heading">Certifications</h2>
+            <p class="mn-skills-subheading">Professional credentials and continuous learning.</p>
+          </div>
+          <div class="mn-skills-watermark">CERTS</div>
+        </div>
+        <div class="mn-certs-grid">
+          {resume.certifications.map((cert: string) => {
+            const parts = cert.split("|").map((p: string) => p.trim());
+            return (
+              <div class="mn-cert-card">
+                <div class="mn-cert-name">{parts[0]}</div>
+                <div class="mn-cert-meta">
+                  <span class="mn-cert-issuer">{parts[1]}</span>
+                  {parts[2] && <span class="mn-cert-year">{parts[2]}</span>}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="mn-education">
+      <div class="mn-education-inner">
+        <h2 class="mn-experience-heading">Education</h2>
+        <div class="mn-edu-card">
+          <div class="mn-edu-degree">{educationParts[0]}</div>
+          <div class="mn-edu-major">{educationParts[1]}</div>
+          <div class="mn-edu-school">{educationParts[2]}</div>
+          <div class="mn-edu-location">{educationParts[3]}</div>
+          {educationParts[4] && <div class="mn-edu-year">{educationParts[4]}</div>}
+        </div>
+
+        <!-- Involvement / Volunteer -->
+        <h2 class="mn-experience-heading" style="margin-top: 5rem;">Community Involvement</h2>
+        <div class="mn-exp-item">
+          <div class="mn-exp-date">
+            <p class="mn-exp-period">{resume.involvement.period}</p>
+          </div>
+          <div class="mn-exp-card-wrap">
+            <div class="mn-exp-card">
+              <h3 class="mn-exp-title">{resume.involvement.role}</h3>
+              <p class="mn-exp-company">{resume.involvement.organization}</p>
+              <p class="mn-exp-summary">{resume.involvement.bullets[0]}</p>
+              {resume.involvement.bullets.length > 1 && (
+                <ul class="mn-exp-bullets">
+                  {resume.involvement.bullets.slice(1).map((bullet: string) => (
+                    <li>{bullet}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="mn-contact">
+      <div class="mn-contact-inner">
+        <div class="mn-contact-left">
+          <h2 class="mn-contact-heading">Ready to build <br/> the future?</h2>
+          <p class="mn-contact-intro">I am always open to discussing new projects, creative ideas, or opportunities to be part of your vision.</p>
+          <div class="mn-contact-items">
+            <a href={`mailto:${resume.email}`} class="mn-contact-item">
+              <div class="mn-contact-icon-box">
+                <span class="material-symbols-outlined">mail</span>
+              </div>
+              <div>
+                <p class="mn-contact-item-label">Email</p>
+                <p class="mn-contact-item-value">{resume.email}</p>
+              </div>
+            </a>
+            <a href={`tel:${resume.phone}`} class="mn-contact-item">
+              <div class="mn-contact-icon-box">
+                <span class="material-symbols-outlined">phone</span>
+              </div>
+              <div>
+                <p class="mn-contact-item-label">Phone</p>
+                <p class="mn-contact-item-value">{resume.phone}</p>
+              </div>
+            </a>
+            <div class="mn-contact-item">
+              <div class="mn-contact-icon-box">
+                <span class="material-symbols-outlined">location_on</span>
+              </div>
+              <div>
+                <p class="mn-contact-item-label">Location</p>
+                <p class="mn-contact-item-value">{resume.location}</p>
+              </div>
+            </div>
+            <a href={resume.linkedin} target="_blank" rel="noopener noreferrer" class="mn-contact-item">
+              <div class="mn-contact-icon-box">
+                <span class="material-symbols-outlined">open_in_new</span>
+              </div>
+              <div>
+                <p class="mn-contact-item-label">LinkedIn</p>
+                <p class="mn-contact-item-value">haniqurayshi</p>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="mn-contact-right">
+          <form class="mn-contact-form" onsubmit="event.preventDefault()">
+            <div class="mn-form-group">
+              <label for="mn-name">Name</label>
+              <input type="text" id="mn-name" name="name" placeholder="Jane Doe" autocomplete="name" />
+            </div>
+            <div class="mn-form-group">
+              <label for="mn-email">Email</label>
+              <input type="email" id="mn-email" name="email" placeholder="jane@example.com" autocomplete="email" />
+            </div>
+            <div class="mn-form-group">
+              <label for="mn-subject">Subject</label>
+              <input type="text" id="mn-subject" name="subject" placeholder="Project inquiry" />
+            </div>
+            <div class="mn-form-group">
+              <label for="mn-message">Message</label>
+              <textarea id="mn-message" name="message" rows={4} placeholder="Tell me about your project..."></textarea>
+            </div>
+            <button type="submit" class="mn-btn mn-btn--gradient mn-btn--full">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mn-footer">
+      <div class="mn-footer-inner">
+        <p class="mn-footer-copy">&copy; {new Date().getFullYear()} {resume.name}. Built for the Monolith.</p>
+        <div class="mn-footer-links">
+          <a href={resume.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href={resume.twitter} target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href={`mailto:${resume.email}`}>Email</a>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+<style is:global>
+  /* ================================================================
+     MONOLITH THEME
+     Dark, editorial, Material Design-inspired portfolio
+     Matching reference HTML design exactly
+     ================================================================ */
+
+  [data-theme="monolith"] {
+    /* Material Design Color Tokens */
+    --mn-surface: #131313;
+    --mn-surface-container: #1f1f1f;
+    --mn-surface-container-low: #1b1b1b;
+    --mn-surface-container-high: #2a2a2a;
+    --mn-surface-container-highest: #353535;
+    --mn-surface-variant: #353535;
+    --mn-outline-variant: #444748;
+    --mn-on-surface: #e2e2e2;
+    --mn-on-surface-variant: #c4c7c8;
+    --mn-primary: #ffffff;
+    --mn-on-primary: #131313;
+    --mn-primary-fixed-dim: #b0c5d0;
+
+    /* Typography */
+    --mn-font-display: 'Space Grotesk', sans-serif;
+    --mn-font-body: 'Inter', sans-serif;
+  }
+
+  /* Reset & Root */
+  .mn-root {
+    background-color: var(--mn-surface);
+    color: var(--mn-on-surface);
+    font-family: var(--mn-font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  .mn-root *,
+  .mn-root *::before,
+  .mn-root *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  .mn-root a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .mn-root ::selection {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: var(--mn-primary);
+  }
+
+  /* Material Symbols sizing */
+  .mn-root .material-symbols-outlined {
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24;
+  }
+
+  /* Monolith Gradient */
+  .mn-monolith-gradient {
+    background: linear-gradient(45deg, #ffffff 0%, #c6c6c7 100%);
+  }
+
+  /* ----------------------------------------------------------------
+     TOP NAV BAR (Always visible, fixed at top)
+     ---------------------------------------------------------------- */
+  .mn-topnav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 50;
+    background-color: rgba(19, 19, 19, 0.7);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+  .mn-topnav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    max-width: 1536px;
+    margin: 0 auto;
+  }
+
+  .mn-topnav-logo {
+    font-family: var(--mn-font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    color: #ffffff !important;
+  }
+
+  .mn-topnav-links {
+    display: none;
+    gap: 2.5rem;
+    font-family: var(--mn-font-display);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  .mn-topnav-link {
+    color: #9ca3af !important;
+    transition: color 0.2s ease;
+  }
+
+  .mn-topnav-link:hover {
+    color: #ffffff !important;
+  }
+
+  .mn-topnav-link--active {
+    color: #ffffff !important;
+    border-bottom: 2px solid #ffffff;
+    padding-bottom: 0.25rem;
+  }
+
+  .mn-hamburger {
+    display: block;
+    background: none;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 0.25rem;
+  }
+
+  .mn-hamburger .material-symbols-outlined {
+    font-size: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .mn-topnav-links {
+      display: flex;
+    }
+    .mn-hamburger {
+      display: none;
+    }
+  }
+
+  /* ----------------------------------------------------------------
+     DESKTOP SIDEBAR (lg: 1024px+)
+     ---------------------------------------------------------------- */
+  .mn-sidebar {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .mn-sidebar {
+      display: flex;
+      height: 100%;
+      width: 16rem;
+      position: fixed;
+      left: 0;
+      top: 0;
+      flex-direction: column;
+      padding: 5.5rem 1.5rem 2.5rem;
+      background-color: #131313;
+      z-index: 40;
+    }
+  }
+
+  .mn-sidebar-header {
+    margin-bottom: 3rem;
+  }
+
+  .mn-sidebar-name {
+    font-family: var(--mn-font-display);
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .mn-sidebar-title {
+    font-family: var(--mn-font-display);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--mn-on-surface-variant);
+    margin-top: 0.25rem;
+  }
+
+  .mn-sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .mn-sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    color: #6b7280 !important;
+    font-family: var(--mn-font-display);
+    font-size: 0.875rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .mn-sidebar-link:hover {
+    background-color: #1f1f1f;
+    color: #9ca3af !important;
+  }
+
+  .mn-sidebar-link--active {
+    background-color: #2a2a2a;
+    color: #ffffff !important;
+    font-weight: 700;
+  }
+
+  .mn-sidebar-link--active:hover {
+    background-color: #2a2a2a;
+    color: #ffffff !important;
+  }
+
+  /* ----------------------------------------------------------------
+     MOBILE MENU OVERLAY
+     ---------------------------------------------------------------- */
+  .mn-mobile-menu {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(19, 19, 19, 0.97);
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .mn-mobile-menu--open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .mn-mobile-menu-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .mn-mobile-menu-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--mn-font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--mn-on-surface-variant) !important;
+  }
+
+  .mn-mobile-menu-link:hover {
+    color: var(--mn-primary) !important;
+  }
+
+  .mn-mobile-menu-link .material-symbols-outlined {
+    font-size: 1.75rem;
+  }
+
+  /* ----------------------------------------------------------------
+     MAIN CONTENT
+     ---------------------------------------------------------------- */
+  .mn-main {
+    min-height: 100vh;
+  }
+
+  @media (min-width: 1024px) {
+    .mn-main {
+      margin-left: 16rem;
+    }
+  }
+
+  /* ----------------------------------------------------------------
+     HERO SECTION
+     ---------------------------------------------------------------- */
+  .mn-hero {
+    min-height: 921px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 2rem 6rem;
+    background-color: var(--mn-surface);
+  }
+
+  @media (min-width: 768px) {
+    .mn-hero {
+      padding: 8rem 6rem 6rem;
+    }
+  }
+
+  .mn-hero-inner {
+    max-width: 56rem;
+  }
+
+  .mn-hero-label {
+    font-family: var(--mn-font-body);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--mn-on-surface-variant);
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .mn-hero-headline {
+    font-family: var(--mn-font-display);
+    font-size: 3.75rem;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 0.9;
+    color: #ffffff;
+    margin: 0 0 3rem;
+  }
+
+  @media (min-width: 768px) {
+    .mn-hero-headline {
+      font-size: 6rem;
+    }
+  }
+
+  .mn-hero-row {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    align-items: flex-start;
+  }
+
+  @media (min-width: 768px) {
+    .mn-hero-row {
+      flex-direction: row;
+    }
+  }
+
+  .mn-hero-text {
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .mn-hero-text {
+      width: 66.6667%;
+    }
+  }
+
+  .mn-hero-summary {
+    font-family: var(--mn-font-body);
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: var(--mn-on-surface);
+    margin-bottom: 2rem;
+  }
+
+  .mn-hero-summary a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .mn-hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .mn-hero-photo-wrap {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background-color: var(--mn-surface-container-low);
+    overflow: hidden;
+    position: relative;
+    filter: grayscale(100%);
+    transition: all 0.7s ease;
+  }
+
+  @media (min-width: 768px) {
+    .mn-hero-photo-wrap {
+      width: 33.3333%;
+    }
+  }
+
+  .mn-hero-photo-wrap:hover {
+    filter: grayscale(0%);
+  }
+
+  .mn-hero-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .mn-hero-photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, var(--mn-surface), transparent);
+    opacity: 0.4;
+  }
+
+  /* ----------------------------------------------------------------
+     BUTTONS
+     ---------------------------------------------------------------- */
+  .mn-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: var(--mn-font-body);
+    font-weight: 700;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-radius: 2px;
+  }
+
+  .mn-btn--gradient {
+    padding: 1rem 2rem;
+    background: linear-gradient(45deg, #ffffff 0%, #c6c6c7 100%);
+    color: var(--mn-on-primary) !important;
+  }
+
+  .mn-btn--gradient:hover {
+    opacity: 0.9;
+    color: var(--mn-on-primary) !important;
+  }
+
+  .mn-btn--outline {
+    padding: 1rem 2rem;
+    background-color: transparent;
+    border: 1px solid rgba(68, 71, 72, 0.2);
+    color: #ffffff !important;
+  }
+
+  .mn-btn--outline:hover {
+    background-color: var(--mn-surface-container-high);
+    color: #ffffff !important;
+  }
+
+  .mn-btn--full {
+    width: 100%;
+  }
+
+  /* ----------------------------------------------------------------
+     BENTO GRID
+     ---------------------------------------------------------------- */
+  .mn-bento {
+    padding: 6rem 2rem;
+    background-color: var(--mn-surface-container-low);
+  }
+
+  @media (min-width: 768px) {
+    .mn-bento {
+      padding: 6rem;
+    }
+  }
+
+  .mn-bento-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 80rem;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .mn-bento-grid {
+      grid-template-columns: repeat(12, 1fr);
+    }
+  }
+
+  .mn-bento-card--wide {
+    grid-column: span 1;
+  }
+
+  .mn-bento-card--narrow {
+    grid-column: span 1;
+  }
+
+  @media (min-width: 768px) {
+    .mn-bento-card--wide {
+      grid-column: span 8;
+    }
+    .mn-bento-card--narrow {
+      grid-column: span 4;
+    }
+  }
+
+  /* Strategy card (first wide card) */
+  .mn-bento-card--strategy {
+    background-color: var(--mn-surface-container);
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .mn-bento-strategy-title {
+    font-family: var(--mn-font-display);
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 1.5rem;
+  }
+
+  .mn-bento-strategy-desc {
+    color: var(--mn-on-surface-variant);
+    line-height: 1.7;
+    font-size: 1.125rem;
+    margin: 0;
+  }
+
+  .mn-bento-strategy-stat {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    color: var(--mn-primary);
+  }
+
+  .mn-bento-strategy-number {
+    font-family: var(--mn-font-display);
+    font-size: 2.25rem;
+    font-weight: 700;
+  }
+
+  .mn-bento-strategy-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--mn-on-surface-variant);
+    line-height: 1.5;
+  }
+
+  /* Feature cards (narrow) */
+  .mn-bento-card--variant {
+    background-color: var(--mn-surface-variant);
+    padding: 2.5rem;
+  }
+
+  .mn-bento-card--high {
+    background-color: var(--mn-surface-container-high);
+    padding: 2.5rem;
+  }
+
+  .mn-bento-icon {
+    font-size: 2.25rem;
+    color: var(--mn-primary);
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .mn-bento-card-title {
+    font-family: var(--mn-font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 1rem;
+  }
+
+  .mn-bento-card-desc {
+    font-size: 0.875rem;
+    color: var(--mn-on-surface-variant);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Global reach card */
+  .mn-bento-card--global {
+    background-color: var(--mn-surface-container);
+    padding: 3rem;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .mn-bento-global-inner {
+    position: relative;
+    z-index: 10;
+  }
+
+  .mn-bento-global-title {
+    font-family: var(--mn-font-display);
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 1rem;
+  }
+
+  .mn-bento-global-desc {
+    color: var(--mn-on-surface-variant);
+    max-width: 28rem;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* ----------------------------------------------------------------
+     EXPERIENCE SECTION
+     ---------------------------------------------------------------- */
+  .mn-experience {
+    padding: 6rem 2rem;
+    background-color: var(--mn-surface);
+  }
+
+  @media (min-width: 768px) {
+    .mn-experience {
+      padding: 6rem;
+    }
+  }
+
+  .mn-experience-inner {
+    max-width: 56rem;
+    margin: 0 auto;
+  }
+
+  .mn-experience-heading {
+    font-family: var(--mn-font-display);
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 5rem;
+  }
+
+  .mn-experience-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8rem;
+  }
+
+  .mn-exp-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .mn-exp-item {
+      flex-direction: row;
+      gap: 6rem;
+    }
+  }
+
+  .mn-exp-date {
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 768px) {
+    .mn-exp-date {
+      width: 25%;
+    }
+  }
+
+  .mn-exp-period {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--mn-on-surface-variant);
+    position: sticky;
+    top: 8rem;
+    margin: 0;
+  }
+
+  .mn-exp-card-wrap {
+    flex: 1;
+  }
+
+  @media (min-width: 768px) {
+    .mn-exp-card-wrap {
+      width: 75%;
+    }
+  }
+
+  .mn-exp-card {
+    background-color: var(--mn-surface-container-low);
+    padding: 2.5rem;
+    transition: background-color 0.2s ease;
+  }
+
+  .mn-exp-card:hover {
+    background-color: var(--mn-surface-container-high);
+  }
+
+  .mn-exp-title {
+    font-family: var(--mn-font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 0.5rem;
+    line-height: 1.3;
+  }
+
+  .mn-exp-company {
+    font-family: var(--mn-font-body);
+    color: var(--mn-primary-fixed-dim);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.875rem;
+    margin: 0 0 1.5rem;
+  }
+
+  .mn-exp-summary {
+    color: var(--mn-on-surface-variant);
+    line-height: 1.7;
+    margin: 0 0 2rem;
+  }
+
+  .mn-exp-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .mn-exp-bullets li {
+    font-size: 0.875rem;
+    line-height: 1.65;
+    color: var(--mn-on-surface-variant);
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .mn-exp-bullets li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: var(--mn-outline-variant);
+  }
+
+  /* ----------------------------------------------------------------
+     SKILLS SECTION
+     ---------------------------------------------------------------- */
+  .mn-skills {
+    padding: 6rem 2rem;
+    background-color: var(--mn-surface-container-low);
+  }
+
+  @media (min-width: 768px) {
+    .mn-skills {
+      padding: 6rem;
+    }
+  }
+
+  .mn-skills-inner {
+    max-width: 72rem;
+    margin: 0 auto;
+  }
+
+  .mn-skills-header {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 5rem;
+  }
+
+  @media (min-width: 768px) {
+    .mn-skills-header {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+  }
+
+  .mn-skills-heading {
+    font-family: var(--mn-font-display);
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 1rem;
+  }
+
+  .mn-skills-subheading {
+    color: var(--mn-on-surface-variant);
+    max-width: 28rem;
+    margin: 0;
+  }
+
+  .mn-skills-watermark {
+    font-family: var(--mn-font-body);
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.05);
+    user-select: none;
+    display: none;
+    line-height: 1;
+  }
+
+  @media (min-width: 1024px) {
+    .mn-skills-watermark {
+      display: block;
+    }
+  }
+
+  .mn-skills-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  @media (min-width: 768px) {
+    .mn-skills-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .mn-skill-group {
+    /* No extra styles needed */
+  }
+
+  .mn-skill-category {
+    font-family: var(--mn-font-display);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--mn-primary);
+    margin: 0 0 2rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--mn-primary);
+  }
+
+  .mn-skill-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .mn-skill-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    background-color: var(--mn-surface-container-highest);
+    color: var(--mn-on-surface);
+    transition: background-color 0.2s ease, color 0.2s ease;
+    cursor: default;
+  }
+
+  .mn-skill-pill:hover {
+    background-color: var(--mn-primary);
+    color: var(--mn-on-primary);
+  }
+
+  /* ----------------------------------------------------------------
+     CERTIFICATIONS SECTION
+     ---------------------------------------------------------------- */
+  .mn-certifications {
+    padding: 6rem 2rem;
+    background-color: var(--mn-surface);
+  }
+
+  @media (min-width: 768px) {
+    .mn-certifications {
+      padding: 6rem;
+    }
+  }
+
+  .mn-certifications-inner {
+    max-width: 72rem;
+    margin: 0 auto;
+  }
+
+  .mn-certs-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .mn-certs-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .mn-cert-card {
+    background-color: var(--mn-surface-container);
+    padding: 1.5rem 1.75rem;
+    transition: background-color 0.2s ease;
+  }
+
+  .mn-cert-card:hover {
+    background-color: var(--mn-surface-container-high);
+  }
+
+  .mn-cert-name {
+    font-family: var(--mn-font-display);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--mn-on-surface);
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+
+  .mn-cert-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .mn-cert-issuer {
+    font-size: 0.75rem;
+    color: var(--mn-on-surface-variant);
+  }
+
+  .mn-cert-year {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--mn-on-surface-variant);
+    opacity: 0.7;
+  }
+
+  /* ----------------------------------------------------------------
+     EDUCATION SECTION
+     ---------------------------------------------------------------- */
+  .mn-education {
+    padding: 6rem 2rem;
+    background-color: var(--mn-surface-container-low);
+  }
+
+  @media (min-width: 768px) {
+    .mn-education {
+      padding: 6rem;
+    }
+  }
+
+  .mn-education-inner {
+    max-width: 56rem;
+    margin: 0 auto;
+  }
+
+  .mn-edu-card {
+    background-color: var(--mn-surface-container);
+    padding: 2rem 2.5rem;
+    max-width: 36rem;
+  }
+
+  .mn-edu-degree {
+    font-family: var(--mn-font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--mn-on-surface);
+    margin-bottom: 0.25rem;
+  }
+
+  .mn-edu-major {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--mn-on-surface);
+    margin-bottom: 0.75rem;
+  }
+
+  .mn-edu-school {
+    font-size: 0.8125rem;
+    color: var(--mn-on-surface-variant);
+    margin-bottom: 0.125rem;
+  }
+
+  .mn-edu-location {
+    font-size: 0.75rem;
+    color: var(--mn-on-surface-variant);
+    opacity: 0.7;
+  }
+
+  .mn-edu-year {
+    margin-top: 0.75rem;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--mn-on-surface-variant);
+  }
+
+  /* ----------------------------------------------------------------
+     CONTACT SECTION
+     ---------------------------------------------------------------- */
+  .mn-contact {
+    padding: 8rem 2rem;
+    background-color: var(--mn-surface);
+  }
+
+  @media (min-width: 768px) {
+    .mn-contact {
+      padding: 8rem 6rem;
+    }
+  }
+
+  .mn-contact-inner {
+    max-width: 56rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+  }
+
+  @media (min-width: 768px) {
+    .mn-contact-inner {
+      flex-direction: row;
+    }
+  }
+
+  .mn-contact-left {
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .mn-contact-left {
+      width: 50%;
+    }
+  }
+
+  .mn-contact-heading {
+    font-family: var(--mn-font-display);
+    font-size: 3rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.05em;
+    line-height: 1.15;
+    margin: 0 0 2rem;
+  }
+
+  .mn-contact-intro {
+    color: var(--mn-on-surface-variant);
+    font-size: 1.125rem;
+    line-height: 1.6;
+    margin: 0 0 3rem;
+  }
+
+  .mn-contact-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .mn-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    color: inherit !important;
+    text-decoration: none;
+  }
+
+  .mn-contact-icon-box {
+    width: 3rem;
+    height: 3rem;
+    background-color: var(--mn-surface-container-high);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    transition: background-color 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .mn-contact-icon-box .material-symbols-outlined {
+    color: #ffffff;
+    font-size: 1.25rem;
+  }
+
+  .mn-contact-item:hover .mn-contact-icon-box {
+    background-color: var(--mn-primary);
+  }
+
+  .mn-contact-item:hover .mn-contact-icon-box .material-symbols-outlined {
+    color: var(--mn-on-primary);
+  }
+
+  .mn-contact-item-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--mn-on-surface-variant);
+    margin: 0;
+  }
+
+  .mn-contact-item-value {
+    color: #ffffff;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .mn-contact-right {
+    width: 100%;
+    background-color: var(--mn-surface-container-low);
+    padding: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .mn-contact-right {
+      width: 50%;
+    }
+  }
+
+  .mn-contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .mn-form-group {
+    position: relative;
+  }
+
+  .mn-form-group label {
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(196, 199, 200, 0.6);
+    margin-bottom: 0.5rem;
+    font-family: var(--mn-font-body);
+  }
+
+  .mn-form-group input,
+  .mn-form-group textarea {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--mn-outline-variant);
+    padding: 0.5rem 0;
+    font-family: var(--mn-font-body);
+    font-size: 0.9375rem;
+    color: #ffffff;
+    outline: none;
+    transition: border-color 0.2s ease;
+    border-radius: 0;
+    resize: vertical;
+  }
+
+  .mn-form-group input::placeholder,
+  .mn-form-group textarea::placeholder {
+    color: var(--mn-surface-variant);
+  }
+
+  .mn-form-group input:focus,
+  .mn-form-group textarea:focus {
+    border-bottom-color: var(--mn-primary);
+    box-shadow: none;
+  }
+
+  /* ----------------------------------------------------------------
+     FOOTER
+     ---------------------------------------------------------------- */
+  .mn-footer {
+    width: 100%;
+    padding: 3rem 2rem;
+    background-color: #131313;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .mn-footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    max-width: 1536px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .mn-footer-inner {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  .mn-footer-copy {
+    font-family: var(--mn-font-body);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #6b7280;
+    margin: 0;
+  }
+
+  .mn-footer-links {
+    display: flex;
+    gap: 2.5rem;
+  }
+
+  .mn-footer-links a {
+    font-family: var(--mn-font-body);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #6b7280 !important;
+    opacity: 0.8;
+    transition: color 0.2s ease, opacity 0.2s ease;
+  }
+
+  .mn-footer-links a:hover {
+    color: #ffffff !important;
+    opacity: 1;
+  }
+
+  /* ----------------------------------------------------------------
+     RESPONSIVE: Mobile (< 640px)
+     ---------------------------------------------------------------- */
+  @media (max-width: 639px) {
+    .mn-hero {
+      padding: 8rem 2rem 4rem;
+      min-height: auto;
+    }
+
+    .mn-hero-headline {
+      font-size: 3rem;
+    }
+
+    .mn-contact-heading {
+      font-size: 2.25rem;
+    }
+
+    .mn-experience-heading {
+      font-size: 1.75rem;
+    }
+
+    .mn-skills-heading {
+      font-size: 1.75rem;
+    }
+  }
+</style>

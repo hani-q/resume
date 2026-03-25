@@ -4,16 +4,21 @@
   --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
   --font-serif: "Georgia", "Times New Roman", serif;
   --font-mono: "JetBrains Mono", "Fira Code", monospace;
-  --font-display: "Cal Sans", "Inter", sans-serif;
+  --font-display: "Space Grotesk", "Inter", sans-serif;
 }
 
-/* Dark mode base */
 :root {
-  color-scheme: dark light;
+  color-scheme: dark;
 }
 
-html {
+html, body {
   scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: #131313;
+  color: #e2e2e2;
+  font-family: "Inter", sans-serif;
 }
 
 /* Print styles for PDF */
