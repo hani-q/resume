@@ -396,22 +396,22 @@ const navItems = [
           </div>
         </div>
         <div class="mn-contact-right">
-          <form class="mn-contact-form" onsubmit="event.preventDefault()">
+          <form class="mn-contact-form" id="mn-contact-form">
             <div class="mn-form-group">
               <label for="mn-name">Name</label>
-              <input type="text" id="mn-name" name="name" placeholder="Jane Doe" autocomplete="name" />
+              <input type="text" id="mn-name" name="name" placeholder="Jane Doe" autocomplete="name" required />
             </div>
             <div class="mn-form-group">
               <label for="mn-email">Email</label>
-              <input type="email" id="mn-email" name="email" placeholder="jane@example.com" autocomplete="email" />
+              <input type="email" id="mn-email" name="email" placeholder="jane@example.com" autocomplete="email" required />
             </div>
             <div class="mn-form-group">
               <label for="mn-subject">Subject</label>
-              <input type="text" id="mn-subject" name="subject" placeholder="Project inquiry" />
+              <input type="text" id="mn-subject" name="subject" placeholder="Project inquiry" required />
             </div>
             <div class="mn-form-group">
               <label for="mn-message">Message</label>
-              <textarea id="mn-message" name="message" rows={4} placeholder="Tell me about your project..."></textarea>
+              <textarea id="mn-message" name="message" rows={4} placeholder="Tell me about your project..." required></textarea>
             </div>
             <button type="submit" class="mn-btn mn-btn--gradient mn-btn--full">Send Message</button>
           </form>
@@ -573,14 +573,14 @@ const navItems = [
         }, 8000);
 
         // Hero headline carousel
+        var heroEl = document.getElementById('mn-hero-headline');
         var heroHeadlines = [
           "Build. Lead. Ship.",
           "From Packets to Products.",
-          heroEl.dataset.years + " Years of Shipping.",
+          (heroEl ? heroEl.dataset.years : "") + " Years of Shipping.",
           "Code Meets Leadership."
         ];
         var heroIndex = 0;
-        var heroEl = document.getElementById('mn-hero-headline');
 
         function showHeroHeadline(index, animate) {
           if (!heroEl) return;
@@ -650,6 +650,24 @@ const navItems = [
             }
           });
         }
+      });
+    })();
+
+    // Contact form mailto handler
+    (function() {
+      var form = document.getElementById('mn-contact-form');
+      if (!form) return;
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var name = document.getElementById('mn-name').value.trim();
+        var email = document.getElementById('mn-email').value.trim();
+        var subject = document.getElementById('mn-subject').value.trim();
+        var message = document.getElementById('mn-message').value.trim();
+        var body = 'From: ' + name + ' (' + email + ')\n\n' + message;
+        var mailto = 'mailto:' + 'hanan.ilyas@gmail.com'
+          + '?subject=' + encodeURIComponent(subject)
+          + '&body=' + encodeURIComponent(body);
+        window.location.href = mailto;
       });
     })();
   </script>
