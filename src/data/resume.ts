@@ -56,6 +56,7 @@ export const resume = {
       "Node.js",
       "Express",
       "Hono",
+      "Expo",
     ],
     cloudDevops: [
       "AWS",
