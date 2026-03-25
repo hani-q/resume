@@ -134,7 +134,7 @@ const navItems = [
     <section id="profile" class="mn-hero">
       <div class="mn-hero-inner">
         <span class="mn-hero-label">{resume.title}</span>
-        <h2 class="mn-hero-headline" id="mn-hero-headline">Build. Lead. Ship.</h2>
+        <h2 class="mn-hero-headline" id="mn-hero-headline" data-years={resume.yearsOfExperience}>Build. Lead. Ship.</h2>
         <div class="mn-hero-row">
           <div class="mn-hero-text">
             <div class="mn-hero-summary" set:html={resume.overview.summary} />
@@ -576,7 +576,7 @@ const navItems = [
         var heroHeadlines = [
           "Build. Lead. Ship.",
           "From Packets to Products.",
-          "18 Years of Shipping.",
+          heroEl.dataset.years + " Years of Shipping.",
           "Code Meets Leadership."
         ];
         var heroIndex = 0;
