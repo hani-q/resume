@@ -13,6 +13,9 @@ yarn-error.log*
 pnpm-debug.log*
 
 
+# generated contribution data
+src/data/contributions.json
+
 # environment variables
 .env
 .env.production

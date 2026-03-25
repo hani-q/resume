@@ -1,13 +1,41 @@
 ---
 import { resume, rfc1925Truths } from "../../data/resume";
+import contributionsData from "../../data/contributions.json";
 
 const educationParts = resume.education.split("|").map((p: string) => p.trim());
+
+// Process contributions for the chart
+const ghWeeks = contributionsData.weeks || [];
+const monthLabels: { label: string; col: number }[] = [];
+let lastMonth = -1;
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+for (let w = 0; w < ghWeeks.length; w++) {
+  const firstDay = ghWeeks[w].contributionDays[0];
+  if (firstDay) {
+    const month = new Date(firstDay.date).getMonth();
+    if (month !== lastMonth) {
+      monthLabels.push({ label: monthNames[month], col: w });
+      lastMonth = month;
+    }
+  }
+}
+function ghLevel(count: number): number {
+  if (count === 0) return 0;
+  if (count <= 3) return 1;
+  if (count <= 6) return 2;
+  if (count <= 9) return 3;
+  return 4;
+}
 
 const skillCategories = [
   { key: "programming", label: "Programming & Frameworks", items: resume.skills.programming },
   { key: "cloudDevops", label: "Cloud & DevOps", items: resume.skills.cloudDevops },
   { key: "networking", label: "Networking", items: resume.skills.networking },
   { key: "aiMl", label: "AI & Machine Learning", items: resume.skills.aiMl },
+  { key: "databases", label: "Databases & Storage", items: resume.skills.databases },
+  { key: "observability", label: "Observability", items: resume.skills.observability },
+  { key: "security", label: "Security & Compliance", items: resume.skills.security },
+  { key: "leadership", label: "Leadership & Delivery", items: resume.skills.leadership },
 ];
 
 const totalCompanies = new Set(resume.experience.map((e: any) => e.company)).size;
@@ -154,11 +182,38 @@ const navItems = [
           <p class="mn-bento-card-desc">Managing cross-functional engineering teams and establishing Centers of Excellence</p>
         </div>
 
-        <!-- Card 4: Global Reach (8 cols) -->
+        <!-- Card 4: Global Reach (4 cols) -->
         <div class="mn-bento-card mn-bento-card--wide mn-bento-card--container mn-bento-card--global">
           <div class="mn-bento-global-inner">
             <h3 class="mn-bento-global-title">Global Reach</h3>
             <p class="mn-bento-global-desc">Work experience across UAE, KSA, USA, Sweden, and Pakistan in both startup and enterprise environments</p>
+          </div>
+        </div>
+
+        <!-- Card 5: GitHub Contributions (full width) -->
+        <div class="mn-bento-card mn-bento-card--full mn-bento-card--github" id="mn-github-card">
+          <div class="mn-gh-months">
+            {monthLabels.map((m) => (
+              <span class="mn-gh-month" style={`grid-column: ${m.col + 1}`}>{m.label}</span>
+            ))}
+          </div>
+          <div class="mn-gh-grid">
+            <div class="mn-gh-days">
+              <span></span><span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span>
+            </div>
+            <div class="mn-gh-weeks">
+              {ghWeeks.map((week: any) => (
+                <div class="mn-gh-week">
+                  {week.contributionDays.map((day: any) => (
+                    <div
+                      class="mn-gh-cell"
+                      data-level={ghLevel(day.contributionCount)}
+                      title={`${day.date}: ${day.contributionCount} contributions`}
+                    />
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -462,6 +517,52 @@ const navItems = [
         // Initialize and start RFC carousel
         showRfcTruth(rfcIndex, false);
         setInterval(nextRfcTruth, 10000);
+
+        // GitHub card click
+        var ghCard = document.getElementById('mn-github-card');
+        if (ghCard) ghCard.addEventListener('click', function() {
+          window.open('https://github.com/hani-q', '_blank');
+        });
+
+        // GitHub spotlight hover
+        var ghCells = document.querySelectorAll('.mn-gh-cell');
+        var ghGreens = ['', '#0e4429', '#006d32', '#26a641', '#39d353'];
+        var ghGreensLight = ['', '#9be9a8', '#40c463', '#30a14e', '#216e39'];
+        var spotlightRadius = 60; // pixels
+
+        if (ghCard) {
+          ghCard.addEventListener('mousemove', function(e) {
+            var rect = ghCard.getBoundingClientRect();
+            var mx = e.clientX;
+            var my = e.clientY;
+            for (var i = 0; i < ghCells.length; i++) {
+              var cell = ghCells[i];
+              var level = parseInt(cell.getAttribute('data-level') || '0');
+              var cr = cell.getBoundingClientRect();
+              var cx = cr.left + cr.width / 2;
+              var cy = cr.top + cr.height / 2;
+              var dist = Math.sqrt((mx - cx) * (mx - cx) + (my - cy) * (my - cy));
+              if (level > 0 && dist < spotlightRadius) {
+                var root = document.querySelector('[data-theme="monolith"]');
+                var isLight = root && root.getAttribute('data-mode') === 'light';
+                var greens = isLight ? ghGreensLight : ghGreens;
+                var opacity = 1 - (dist / spotlightRadius);
+                cell.style.backgroundColor = greens[level];
+                cell.style.opacity = (0.5 + opacity * 0.5).toString();
+              } else {
+                cell.style.backgroundColor = '';
+                cell.style.opacity = '';
+              }
+            }
+          });
+
+          ghCard.addEventListener('mouseleave', function() {
+            for (var i = 0; i < ghCells.length; i++) {
+              ghCells[i].style.backgroundColor = '';
+              ghCells[i].style.opacity = '';
+            }
+          });
+        }
       });
     })();
   </script>
@@ -935,7 +1036,8 @@ const navItems = [
   }
 
   .mn-hero-inner {
-    max-width: 56rem;
+    max-width: 80rem;
+    margin: 0 auto;
   }
 
   .mn-hero-label {
@@ -974,6 +1076,7 @@ const navItems = [
   @media (min-width: 768px) {
     .mn-hero-row {
       flex-direction: row;
+      justify-content: space-between;
     }
   }
 
@@ -1066,6 +1169,7 @@ const navItems = [
   @media (min-width: 768px) {
     .mn-hero-photo-wrap {
       width: 33.3333%;
+      margin-left: auto;
     }
   }
 
@@ -1537,6 +1641,89 @@ const navItems = [
     background-color: var(--mn-primary);
     color: var(--mn-on-primary);
   }
+
+  /* GitHub contributions bento card */
+  .mn-bento-card--full {
+    grid-column: 1 / -1;
+  }
+
+  .mn-bento-card--github {
+    overflow-x: auto;
+    padding: 2rem;
+    background-color: var(--mn-surface-container);
+    cursor: pointer;
+  }
+
+  .mn-gh-months {
+    display: grid;
+    grid-template-columns: repeat(53, 1fr);
+    gap: 3px;
+    margin-left: 36px;
+    margin-bottom: 4px;
+  }
+
+  .mn-gh-month {
+    font-size: 10px;
+    color: var(--mn-on-surface-variant);
+    font-family: var(--mn-font-body);
+    white-space: nowrap;
+  }
+
+  .mn-gh-grid {
+    display: flex;
+  }
+
+  .mn-gh-days {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-right: 6px;
+    width: 30px;
+    flex-shrink: 0;
+  }
+
+  .mn-gh-days span {
+    flex: 1;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    color: var(--mn-on-surface-variant);
+    font-family: var(--mn-font-body);
+  }
+
+  .mn-gh-weeks {
+    display: flex;
+    gap: 3px;
+    flex: 1;
+  }
+
+  .mn-gh-week {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex: 1;
+  }
+
+  .mn-gh-cell {
+    width: 100%;
+    aspect-ratio: 1;
+    transition: background-color 0.3s ease;
+  }
+
+  /* Dark mode colors */
+  .mn-gh-cell[data-level="0"] { background-color: #1b1b1b; }
+  .mn-gh-cell[data-level="1"] { background-color: #333; }
+  .mn-gh-cell[data-level="2"] { background-color: #555; }
+  .mn-gh-cell[data-level="3"] { background-color: #888; }
+  .mn-gh-cell[data-level="4"] { background-color: #ccc; }
+
+  /* Light mode colors */
+  [data-mode="light"] .mn-gh-cell[data-level="0"] { background-color: #ebedf0; }
+  [data-mode="light"] .mn-gh-cell[data-level="1"] { background-color: #c6c6c6; }
+  [data-mode="light"] .mn-gh-cell[data-level="2"] { background-color: #8a8a8a; }
+  [data-mode="light"] .mn-gh-cell[data-level="3"] { background-color: #555; }
+  [data-mode="light"] .mn-gh-cell[data-level="4"] { background-color: #2a2a2a; }
+
 
   /* ----------------------------------------------------------------
      CERTIFICATIONS SECTION

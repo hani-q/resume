@@ -24,6 +24,7 @@ export const resume = {
   phone: "+966532534616",
   linkedin: "https://www.linkedin.com/in/haniqurayshi/",
   twitter: "https://x.com/haniq313",
+  github: "hani-q",
   profileImage: "/profile.jpeg",
 
   overview: {
@@ -50,6 +51,11 @@ export const resume = {
       "React",
       "React Native",
       "Kotlin",
+      "Astro",
+      "Next.js",
+      "Node.js",
+      "Express",
+      "Hono",
     ],
     cloudDevops: [
       "AWS",
@@ -59,9 +65,20 @@ export const resume = {
       "OpenStack",
       "Terraform/OpenTofu",
       "Docker Compose",
+      "Ansible",
+      "CI/CD (GitHub Actions, Jenkins, GitLab CI)",
+      "ArgoCD",
+      "GitOps",
+      "Kafka",
+      "Gerrit",
+      "Greptile",
     ],
-    networking: ["DPDK", "DPI", "NFV/VNF"],
-    aiMl: ["TensorFlow", "PyTorch", "MLOps"],
+    databases: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "CockroachDB", "ClickHouse", "Firebase", "AWS Amplify"],
+    observability: ["Elasticsearch", "Logstash", "Kibana", "Grafana", "Prometheus", "Vector"],
+    networking: ["DPDK", "DPI", "NFV/VNF", "PCRF", "Network Analytics", "Traffic Management"],
+    aiMl: ["TensorFlow", "PyTorch", "MLOps", "Agentic AI (Claude Code, Codex, OpenClaw)", "LLM Integration", "Reinforcement Learning"],
+    security: ["DevSecOps", "Cyber Security", "Regulatory Compliance"],
+    leadership: ["Agile/Scrum", "Kanban/Scrumban", "Team Building & Scaling", "Engineering Culture", "Cross-functional Leadership", "Hiring & Mentoring", "OKRs & Roadmapping", "Vendor & Stakeholder Management"],
   },
 
   experience: [
@@ -71,13 +88,13 @@ export const resume = {
       location: "Dubai, UAE (Hybrid)",
       period: "October 2023 - Present",
       bullets: [
-        "Leading Application Engineering, DevSecOps, and Agentic Software Engineering teams in a fast-paced startup building Network Intelligence and Cyber Security solutions.",
-        "Spearheading the adoption of Agentic Software Engineering practices across the engineering organization, establishing safe usage guidelines and best practices for AI-assisted development.",
-        "Driving integration of agentic coding tools including Claude Code, OpenAI Codex, and self-hosted models via open-source harnesses such as OpenCode for developer productivity.",
-        "Deploying OpenClaw to automate key engineering roles and workflows, reducing manual overhead and accelerating delivery cycles.",
-        "Establishing DevSecOps practices with security-first development workflows, CI/CD pipelines, and infrastructure as code.",
-        "Overseeing the development of high-performance network solutions using DPDK, AI/ML-driven network analysis, and real-time security monitoring systems.",
-        "Managing and coordinating cross-functional teams to deliver scalable, production-grade networking and cyber security products.",
+        "Built the entire engineering organization from the ground up at a greenfield startup — designed the org structure, defined team charters, hired and onboarded engineers, and established engineering methodologies, tooling, and culture.",
+        "Structured the engineering department into focused teams: Application Engineering, DevSecOps, QA, and Agentic Software Engineering, each with clear ownership, delivery cadence (Scrum/Kanban/Scrumban), and KPIs.",
+        "Owned product management for the full DPI stack — driving roadmap, prioritization, and delivery across Management & Configuration, Signatures, Control Plane, Data Plane, Analytics, and Observability modules.",
+        "Spearheading the adoption of Agentic Software Engineering practices across the org, establishing safe usage guidelines and best practices for AI-assisted development using Claude Code, OpenAI Codex, self-hosted models via OpenCode, and OpenClaw for workflow automation.",
+        "Established DevSecOps practices with security-first development workflows, CI/CD pipelines (GitHub Actions, ArgoCD), GitOps, and infrastructure as code (Terraform/OpenTofu, Ansible).",
+        "Overseeing the development of high-performance network intelligence and cyber security solutions using DPDK, AI/ML-driven analysis, Kafka, ClickHouse, and real-time monitoring systems.",
+        "Leading cross-functional collaboration between engineering, product, and business teams to deliver scalable, production-grade networking and cyber security products.",
       ],
     },
     {
@@ -237,6 +254,8 @@ export const resume = {
   ],
 
   certifications: [
+    "Claude Code in Action | Anthropic | 2026",
+    "Complete DevOps Ansible Automation Training | Udemy | 2024",
     "Unsupervised Machine Learning, Recommenders, Reinforcement Learning | Stanford University | 2024",
     "Advanced Machine Learning Algorithms | Stanford University | 2024",
     "Supervised Machine Learning, Regression and Classification | Stanford University | 2023",
