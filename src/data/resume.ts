@@ -16,7 +16,14 @@ export const rfc1925Truths = [
   { number: "12", text: "In protocol design, perfection has been reached not when there is nothing left to add, but when there is nothing left to take away." },
 ];
 
+const careerStartDate = new Date(2008, 8); // September 2008
+const now = new Date();
+const yearsOfExperience = Math.floor(
+  (now.getTime() - careerStartDate.getTime()) / (365.25 * 24 * 60 * 60 * 1000)
+);
+
 export const resume = {
+  yearsOfExperience,
   name: "Hani Quraishi",
   title: "Engineering Leader & Solutions Architect",
   location: "Makkah, Kingdom of Saudi Arabia",
@@ -29,9 +36,9 @@ export const resume = {
 
   overview: {
     summary:
-      'Engineering Leader & Solutions Architect with 18+ years of experience in Network Intelligence, Cloud Architecture, and Cyber Security. An <a href="https://www.rfc-editor.org/rfc/rfc1925" target="_blank" rel="noopener noreferrer" class="underline hover:text-blue-500">RFC 1925</a>-compatible engineer.',
+      `Engineering Leader & Solutions Architect with ${yearsOfExperience}+ years of experience building and scaling engineering teams across Network Intelligence, Cloud Architecture, and Cyber Security. Currently managing 20+ engineers across four teams at DNI Dubai. An <a href="https://www.rfc-editor.org/rfc/rfc1925" target="_blank" rel="noopener noreferrer" class="underline hover:text-blue-500">RFC 1925</a>-compatible engineer.`,
     highlights: [
-      "Currently leading Application, DevSecOps, and Agentic Software Engineering teams at DNI Dubai, driving AI-assisted development practices and Network Intelligence solutions",
+      "Currently leading Application, Data Engineering, DevSecOps, and Agentic Software Engineering teams at DNI Dubai, driving AI-assisted development practices and Network Intelligence solutions",
       "Extensive experience in DPI, Network Analytics, and Cloud Solutions with proven track record at Sandvine and PLUMgrid (acquired by VMware)",
       "Strong background in Cloud Architecture with triple AWS certifications and expertise in DevSecOps, MLOps, and Infrastructure as Code",
       "Proven leadership experience managing cross-functional teams and establishing Centers of Excellence",
@@ -70,7 +77,7 @@ export const resume = {
       "CI/CD (GitHub Actions, Jenkins, GitLab CI)",
       "ArgoCD",
       "GitOps",
-      "Kafka",
+      "Kafka/Redpanda",
       "Gerrit",
       "Greptile",
     ],
@@ -84,18 +91,18 @@ export const resume = {
 
   experience: [
     {
-      title: "Head of Engineering — Application, DevSecOps & Agentic Software Engineering",
+      title: "Head of Engineering — Application, Data Engineering, DevSecOps & Agentic Software Engineering",
       company: "Dynamic Network Intelligence (DNI)",
       location: "Dubai, UAE (Hybrid)",
       period: "October 2023 - Present",
       bullets: [
-        "Built the entire engineering organization from the ground up at a greenfield startup — designed the org structure, defined team charters, hired and onboarded engineers, and established engineering methodologies, tooling, and culture.",
-        "Structured the engineering department into focused teams: Application Engineering, DevSecOps, QA, and Agentic Software Engineering, each with clear ownership, delivery cadence (Scrum/Kanban/Scrumban), and KPIs.",
-        "Owned product management for the full DPI stack — driving roadmap, prioritization, and delivery across Management & Configuration, Signatures, Control Plane, Data Plane, Analytics, and Observability modules.",
-        "Spearheading the adoption of Agentic Software Engineering practices across the org, establishing safe usage guidelines and best practices for AI-assisted development using Claude Code, OpenAI Codex, self-hosted models via OpenCode, and OpenClaw for workflow automation.",
-        "Established DevSecOps practices with security-first development workflows, CI/CD pipelines (GitHub Actions, ArgoCD), GitOps, and infrastructure as code (Terraform/OpenTofu, Ansible).",
-        "Overseeing the development of high-performance network intelligence and cyber security solutions using DPDK, AI/ML-driven analysis, Kafka, ClickHouse, and real-time monitoring systems.",
-        "Leading cross-functional collaboration between engineering, product, and business teams to deliver scalable, production-grade networking and cyber security products.",
+        "Build the entire engineering organization from the ground up at a greenfield startup — design the org structure, define team charters, hire and onboard 20+ engineers, and establish engineering methodologies, tooling, and culture.",
+        "Structure the engineering department into focused teams: Application Engineering, Data Engineering, DevSecOps, QA, and Agentic Software Engineering, each with clear ownership, delivery cadence (Scrum/Kanban/Scrumban), and KPIs.",
+        "Own product management for the full DPI stack — drive roadmap, prioritization, and delivery across Management & Configuration, Signatures, Control Plane, Data Plane, Analytics, and Observability modules.",
+        "Spearhead the adoption of Agentic Software Engineering practices across the org, establishing safe usage guidelines and best practices for AI-assisted development using Claude Code, OpenAI Codex, and self-hosted models.",
+        "Establish DevSecOps practices with security-first development workflows, CI/CD pipelines (GitHub Actions, ArgoCD), GitOps, and infrastructure as code (Terraform/OpenTofu, Ansible).",
+        "Oversee the development of high-performance network intelligence and cyber security solutions using DPDK, AI/ML-driven analysis, Redpanda, ClickHouse, and real-time monitoring systems.",
+        "Lead cross-functional collaboration between engineering, product, and business teams to deliver scalable, production-grade networking and cyber security products.",
       ],
     },
     {
@@ -125,7 +132,7 @@ export const resume = {
         "Led a team of 5 engineers, driving successful project delivery for customers.",
         "Achieved an average project completion rate of 90% within agreed timeline and budget.",
         "Maintained a customer satisfaction rating of 90% based on feedback surveys.",
-        "Collaborated with industry partners including Cisco, Sandvine, and Sangfour.",
+        "Collaborated with industry partners including Cisco, Sandvine, and Sangfor.",
       ],
     },
     {
@@ -239,7 +246,7 @@ export const resume = {
       ],
     },
     {
-      title: "Internee",
+      title: "Intern",
       company: "wi-tribe",
       location: "Islamabad, Pakistan",
       period: "September 2008 - November 2008",
@@ -270,7 +277,7 @@ export const resume = {
   ],
 
   education:
-    "Bachelors of Electrical Engineering | Computer | University of Engineering and Technology, Taxila | Islamabad, Pakistan | 2009",
+    "Bachelor of Electrical Engineering | Computer | University of Engineering and Technology, Taxila | Islamabad, Pakistan | 2009",
 
   involvement: {
     organization: "Qasmia Welfare Trust",

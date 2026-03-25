@@ -163,7 +163,7 @@ const navItems = [
             <p class="mn-bento-strategy-desc" id="mn-tagline-desc">Engineering Leader with deep expertise in Network Intelligence, Cloud Architecture, and Cyber Security. Building resilient systems that scale from startup to enterprise across global markets.</p>
           </div>
           <div class="mn-bento-strategy-stat">
-            <span class="mn-bento-strategy-number">18+</span>
+            <span class="mn-bento-strategy-number">{resume.yearsOfExperience}+</span>
             <span class="mn-bento-strategy-label">Years of Deep <br/> Engineering Expertise</span>
           </div>
         </div>
@@ -268,7 +268,7 @@ const navItems = [
         <div class="mn-skills-header">
           <div>
             <h2 class="mn-skills-heading">Technical Proficiency</h2>
-            <p class="mn-skills-subheading">A curated stack of modern technologies honed across 18+ years of engineering.</p>
+            <p class="mn-skills-subheading">A curated stack of modern technologies honed across {resume.yearsOfExperience}+ years of engineering.</p>
           </div>
           <div class="mn-skills-watermark">SKILLS</div>
         </div>
@@ -327,7 +327,7 @@ const navItems = [
         </div>
 
         <!-- Involvement / Volunteer -->
-        <h2 class="mn-experience-heading" style="margin-top: 5rem;">Community Involvement</h2>
+        <h2 class="mn-experience-heading mn-community-heading" style="margin-top: 5rem;">Community Involvement</h2>
         <div class="mn-exp-item">
           <div class="mn-exp-date">
             <p class="mn-exp-period">{resume.involvement.period}</p>
@@ -2198,7 +2198,7 @@ const navItems = [
     /* Page setup */
     @page {
       size: letter;
-      margin: 0.6in 0.7in;
+      margin: 0.5in 0.6in;
     }
 
     /* Hide non-resume elements */
@@ -2232,9 +2232,9 @@ const navItems = [
     }
 
     .mn-print-name {
-      font-size: 22pt !important;
+      font-size: 20pt !important;
       font-weight: 700 !important;
-      margin: 0 0 4pt !important;
+      margin: 0 0 3pt !important;
       text-transform: uppercase !important;
       letter-spacing: 1pt !important;
     }
@@ -2244,8 +2244,8 @@ const navItems = [
       justify-content: center !important;
       flex-wrap: wrap !important;
       gap: 0 !important;
-      font-size: 9.5pt !important;
-      margin: 0 0 6pt !important;
+      font-size: 9pt !important;
+      margin: 0 0 4pt !important;
     }
 
     .mn-print-contact span {
@@ -2260,7 +2260,7 @@ const navItems = [
     .mn-print-divider {
       border: none !important;
       border-top: 1.5pt solid #000 !important;
-      margin: 0 0 6pt !important;
+      margin: 0 0 4pt !important;
     }
 
     /* Remove layout constraints — single column */
@@ -2294,10 +2294,10 @@ const navItems = [
     .mn-hero-summary::before {
       content: "Professional Summary" !important;
       display: block !important;
-      font-size: 14pt !important;
+      font-size: 12pt !important;
       font-weight: 700 !important;
-      margin: 0 0 3pt !important;
-      padding: 0 0 3pt !important;
+      margin: 0 0 2pt !important;
+      padding: 0 0 2pt !important;
       border-bottom: 1.5pt solid #000 !important;
     }
 
@@ -2310,9 +2310,9 @@ const navItems = [
     }
 
     .mn-hero-summary {
-      font-size: 10pt !important;
-      line-height: 1.4 !important;
-      margin: 0 0 0.1in !important;
+      font-size: 9.5pt !important;
+      line-height: 1.3 !important;
+      margin: 0 0 0.06in !important;
     }
 
     .mn-hero-photo-wrap {
@@ -2369,7 +2369,7 @@ const navItems = [
     /* Experience section */
     .mn-experience {
       padding: 0 !important;
-      margin: 0 0 0.15in !important;
+      margin: 0 0 0.08in !important;
     }
 
     .mn-experience-inner {
@@ -2378,10 +2378,10 @@ const navItems = [
     }
 
     .mn-experience-heading {
-      font-size: 14pt !important;
+      font-size: 12pt !important;
       font-weight: 700 !important;
-      margin: 0 0 6pt !important;
-      padding: 0 0 3pt !important;
+      margin: 0 0 4pt !important;
+      padding: 0 0 2pt !important;
       border-bottom: 1.5pt solid #000 !important;
     }
 
@@ -2391,7 +2391,7 @@ const navItems = [
 
     .mn-exp-item {
       display: block !important;
-      padding: 4pt 0 !important;
+      padding: 3pt 0 !important;
       margin: 0 !important;
       border: none !important;
       page-break-inside: avoid !important;
@@ -2404,9 +2404,11 @@ const navItems = [
     }
 
     .mn-exp-period {
-      font-size: 9pt !important;
+      font-size: 8pt !important;
       color: #555 !important;
       margin: 0 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.5pt !important;
     }
 
     .mn-exp-card-wrap {
@@ -2422,40 +2424,46 @@ const navItems = [
     }
 
     .mn-exp-title {
-      font-size: 11pt !important;
+      font-size: 10pt !important;
       font-weight: 700 !important;
       margin: 0 !important;
       display: inline !important;
     }
 
     .mn-exp-company {
-      font-size: 10pt !important;
-      margin: 0 0 2pt !important;
+      font-size: 9pt !important;
+      margin: 0 0 1pt !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.3pt !important;
     }
 
     .mn-exp-summary {
-      font-size: 10pt !important;
-      line-height: 1.35 !important;
-      margin: 2pt 0 !important;
+      font-size: 9pt !important;
+      line-height: 1.3 !important;
+      margin: 1pt 0 !important;
     }
 
     .mn-exp-bullets {
-      font-size: 9.5pt !important;
-      line-height: 1.35 !important;
-      margin: 2pt 0 0 0.2in !important;
-      padding: 0 !important;
-      list-style: disc !important;
+      font-size: 8.5pt !important;
+      line-height: 1.25 !important;
+      margin: 1pt 0 0 0 !important;
+      padding: 0 0 0 0.2in !important;
+      list-style: disc outside !important;
     }
 
     .mn-exp-bullets li {
-      margin: 1pt 0 !important;
+      margin: 0.5pt 0 !important;
       padding: 0 !important;
+    }
+
+    .mn-exp-bullets li::before {
+      content: none !important;
     }
 
     /* Skills section — comma-separated, no pills */
     .mn-skills {
       padding: 0 !important;
-      margin: 0 0 0.15in !important;
+      margin: 0 0 0.08in !important;
     }
 
     .mn-skills-inner {
@@ -2464,14 +2472,14 @@ const navItems = [
     }
 
     .mn-skills-header {
-      margin: 0 0 4pt !important;
+      margin: 0 0 2pt !important;
     }
 
     .mn-skills-heading {
-      font-size: 14pt !important;
+      font-size: 12pt !important;
       font-weight: 700 !important;
-      margin: 0 0 3pt !important;
-      padding: 0 0 3pt !important;
+      margin: 0 0 2pt !important;
+      padding: 0 0 2pt !important;
       border-bottom: 1.5pt solid #000 !important;
     }
 
@@ -2485,14 +2493,14 @@ const navItems = [
     }
 
     .mn-skill-group {
-      margin: 0 0 3pt !important;
+      margin: 0 0 1pt !important;
       padding: 0 !important;
       border: none !important;
       background: none !important;
     }
 
     .mn-skill-category {
-      font-size: 10pt !important;
+      font-size: 9pt !important;
       font-weight: 700 !important;
       display: inline !important;
       margin: 0 !important;
@@ -2509,7 +2517,7 @@ const navItems = [
 
     .mn-skill-pill {
       display: inline !important;
-      font-size: 10pt !important;
+      font-size: 9pt !important;
       padding: 0 !important;
       margin: 0 !important;
       border: none !important;
@@ -2528,12 +2536,20 @@ const navItems = [
     /* Certifications */
     .mn-certifications {
       padding: 0 !important;
-      margin: 0 0 0.15in !important;
+      margin: 0 0 0.08in !important;
     }
 
     .mn-certifications-inner {
       padding: 0 !important;
       max-width: 100% !important;
+    }
+
+    .mn-certs-heading {
+      font-size: 12pt !important;
+      font-weight: 700 !important;
+      margin: 0 0 2pt !important;
+      padding: 0 0 2pt !important;
+      border-bottom: 1.5pt solid #000 !important;
     }
 
     .mn-certs-grid {
@@ -2542,7 +2558,7 @@ const navItems = [
     }
 
     .mn-cert-card {
-      padding: 2pt 0 !important;
+      padding: 1pt 0 !important;
       margin: 0 !important;
       border: none !important;
       background: none !important;
@@ -2551,14 +2567,14 @@ const navItems = [
     }
 
     .mn-cert-name {
-      font-size: 10pt !important;
+      font-size: 9pt !important;
       font-weight: 400 !important;
       display: inline !important;
     }
 
     .mn-cert-meta {
       display: inline !important;
-      font-size: 9pt !important;
+      font-size: 8.5pt !important;
     }
 
     .mn-cert-meta::before {
@@ -2566,11 +2582,11 @@ const navItems = [
     }
 
     .mn-cert-issuer {
-      font-size: 9pt !important;
+      font-size: 8.5pt !important;
     }
 
     .mn-cert-year {
-      font-size: 9pt !important;
+      font-size: 8.5pt !important;
     }
 
     .mn-cert-year::before {
@@ -2580,7 +2596,7 @@ const navItems = [
     /* Education */
     .mn-education {
       padding: 0 !important;
-      margin: 0 0 0.15in !important;
+      margin: 0 0 0.08in !important;
     }
 
     .mn-education-inner {
@@ -2588,22 +2604,30 @@ const navItems = [
       max-width: 100% !important;
     }
 
+    .mn-education-heading {
+      font-size: 12pt !important;
+      font-weight: 700 !important;
+      margin: 0 0 2pt !important;
+      padding: 0 0 2pt !important;
+      border-bottom: 1.5pt solid #000 !important;
+    }
+
     .mn-edu-card {
       padding: 0 !important;
-      margin: 0 0 4pt !important;
+      margin: 0 0 2pt !important;
       border: none !important;
       background: none !important;
       border-radius: 0 !important;
     }
 
     .mn-edu-degree {
-      font-size: 11pt !important;
+      font-size: 10pt !important;
       font-weight: 700 !important;
       display: inline !important;
     }
 
     .mn-edu-major {
-      font-size: 10pt !important;
+      font-size: 9pt !important;
       display: inline !important;
     }
 
@@ -2612,22 +2636,27 @@ const navItems = [
     }
 
     .mn-edu-school {
-      font-size: 10pt !important;
+      font-size: 9pt !important;
       margin: 0 !important;
     }
 
     .mn-edu-location {
-      font-size: 9pt !important;
+      font-size: 8.5pt !important;
       display: inline !important;
     }
 
     .mn-edu-year {
-      font-size: 9pt !important;
+      font-size: 8.5pt !important;
       display: inline !important;
     }
 
     .mn-edu-year::before {
       content: " | " !important;
+    }
+
+    /* Community involvement heading — kill the large screen margin */
+    .mn-community-heading {
+      margin-top: 6pt !important;
     }
 
     /* Links — hide appended URLs in print */
