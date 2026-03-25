@@ -134,7 +134,7 @@ const navItems = [
     <section id="profile" class="mn-hero">
       <div class="mn-hero-inner">
         <span class="mn-hero-label">{resume.title}</span>
-        <h2 class="mn-hero-headline">Architecting <br/> Scalable <br/> Monoliths.</h2>
+        <h2 class="mn-hero-headline" id="mn-hero-headline">Build. Lead. Ship.</h2>
         <div class="mn-hero-row">
           <div class="mn-hero-text">
             <div class="mn-hero-summary" set:html={resume.overview.summary} />
@@ -159,8 +159,8 @@ const navItems = [
         <!-- Card 1: The Monolith Strategy (8 cols) -->
         <div class="mn-bento-card mn-bento-card--wide mn-bento-card--strategy">
           <div>
-            <h3 class="mn-bento-strategy-title">The Monolith Strategy</h3>
-            <p class="mn-bento-strategy-desc">Engineering Leader with deep expertise in Network Intelligence, Cloud Architecture, and Cyber Security. Building resilient systems that scale from startup to enterprise across global markets.</p>
+            <h3 class="mn-bento-strategy-title" id="mn-tagline-text">Architect. Build. Scale. Repeat.</h3>
+            <p class="mn-bento-strategy-desc" id="mn-tagline-desc">Engineering Leader with deep expertise in Network Intelligence, Cloud Architecture, and Cyber Security. Building resilient systems that scale from startup to enterprise across global markets.</p>
           </div>
           <div class="mn-bento-strategy-stat">
             <span class="mn-bento-strategy-number">18+</span>
@@ -175,22 +175,28 @@ const navItems = [
           <p class="mn-bento-card-desc">AWS, OCI, GCP, OpenStack with triple AWS certifications and Infrastructure as Code expertise</p>
         </div>
 
-        <!-- Card 3: Team Mentorship (4 cols) -->
+        <!-- Card 3: Enterprise Products (4 cols) -->
         <div class="mn-bento-card mn-bento-card--narrow mn-bento-card--high">
+          <span class="material-symbols-outlined mn-bento-icon">dns</span>
+          <h4 class="mn-bento-card-title">Enterprise Products</h4>
+          <p class="mn-bento-card-desc">Building on-prem appliance products deployed in customer data centers — network intelligence, DPI, and cyber security platforms</p>
+        </div>
+
+        <!-- Card 4: Team Mentorship (4 cols) -->
+        <div class="mn-bento-card mn-bento-card--narrow mn-bento-card--variant">
           <span class="material-symbols-outlined mn-bento-icon">groups</span>
           <h4 class="mn-bento-card-title">Team Mentorship</h4>
           <p class="mn-bento-card-desc">Managing cross-functional engineering teams and establishing Centers of Excellence</p>
         </div>
 
-        <!-- Card 4: Global Reach (4 cols) -->
-        <div class="mn-bento-card mn-bento-card--wide mn-bento-card--container mn-bento-card--global">
-          <div class="mn-bento-global-inner">
-            <h3 class="mn-bento-global-title">Global Reach</h3>
-            <p class="mn-bento-global-desc">Work experience across UAE, KSA, USA, Sweden, and Pakistan in both startup and enterprise environments</p>
-          </div>
+        <!-- Card 5: Global Reach (4 cols) -->
+        <div class="mn-bento-card mn-bento-card--narrow mn-bento-card--global">
+          <span class="material-symbols-outlined mn-bento-icon">public</span>
+          <h4 class="mn-bento-card-title">Global Reach</h4>
+          <p class="mn-bento-card-desc">Work across UAE, KSA, USA, Sweden, and Pakistan in startup and enterprise environments</p>
         </div>
 
-        <!-- Card 5: GitHub Contributions (full width) -->
+        <!-- Card 6: GitHub Contributions (full width) -->
         <div class="mn-bento-card mn-bento-card--full mn-bento-card--github" id="mn-github-card">
           <div class="mn-gh-months">
             {monthLabels.map((m) => (
@@ -518,6 +524,80 @@ const navItems = [
         showRfcTruth(rfcIndex, false);
         setInterval(nextRfcTruth, 10000);
 
+        // Tagline carousel
+        var taglines = [
+          { title: "Architect. Build. Scale. Repeat.", desc: "Engineering Leader with deep expertise in Network Intelligence, Cloud Architecture, and Cyber Security. Building resilient systems that scale from startup to enterprise across global markets." },
+          { title: "Building Teams That Build Products.", desc: "From hiring the first engineer to structuring entire departments — designing org culture, delivery methodologies, and technical strategy from the ground up." },
+          { title: "Engineering the Next Engineering.", desc: "Pioneering Agentic Software Engineering practices — integrating AI-assisted development, autonomous workflows, and intelligent tooling into modern engineering organizations." }
+        ];
+        var taglineIndex = 0;
+        var taglineTitle = document.getElementById('mn-tagline-text');
+        var taglineDesc = document.getElementById('mn-tagline-desc');
+
+        function showTagline(index, animate) {
+          if (!taglineTitle || !taglineDesc) return;
+          var t = taglines[index];
+          if (!animate) {
+            taglineTitle.textContent = t.title;
+            taglineDesc.textContent = t.desc;
+            return;
+          }
+          taglineTitle.style.opacity = '0';
+          taglineTitle.style.transform = 'translateY(-20px)';
+          taglineDesc.style.opacity = '0';
+          taglineDesc.style.transform = 'translateY(-20px)';
+          setTimeout(function() {
+            taglineTitle.textContent = t.title;
+            taglineDesc.textContent = t.desc;
+            taglineTitle.style.transform = 'translateY(20px)';
+            taglineDesc.style.transform = 'translateY(20px)';
+            void taglineTitle.offsetHeight;
+            taglineTitle.style.opacity = '1';
+            taglineTitle.style.transform = 'translateY(0)';
+            taglineDesc.style.opacity = '1';
+            taglineDesc.style.transform = 'translateY(0)';
+          }, 500);
+        }
+
+        showTagline(0, false);
+        setInterval(function() {
+          taglineIndex = (taglineIndex + 1) % taglines.length;
+          showTagline(taglineIndex, true);
+        }, 8000);
+
+        // Hero headline carousel
+        var heroHeadlines = [
+          "Build. Lead. Ship.",
+          "From Packets to Products.",
+          "18 Years of Shipping.",
+          "Code Meets Leadership."
+        ];
+        var heroIndex = 0;
+        var heroEl = document.getElementById('mn-hero-headline');
+
+        function showHeroHeadline(index, animate) {
+          if (!heroEl) return;
+          if (!animate) {
+            heroEl.textContent = heroHeadlines[index];
+            return;
+          }
+          heroEl.style.opacity = '0';
+          heroEl.style.transform = 'translateY(-30px)';
+          setTimeout(function() {
+            heroEl.textContent = heroHeadlines[index];
+            heroEl.style.transform = 'translateY(30px)';
+            void heroEl.offsetHeight;
+            heroEl.style.opacity = '1';
+            heroEl.style.transform = 'translateY(0)';
+          }, 500);
+        }
+
+        showHeroHeadline(0, false);
+        setInterval(function() {
+          heroIndex = (heroIndex + 1) % heroHeadlines.length;
+          showHeroHeadline(heroIndex, true);
+        }, 6000);
+
         // GitHub card click
         var ghCard = document.getElementById('mn-github-card');
         if (ghCard) ghCard.addEventListener('click', function() {
@@ -730,7 +810,6 @@ const navItems = [
   [data-mode="light"] .mn-hero-label,
   [data-mode="light"] .mn-bento-strategy-title,
   [data-mode="light"] .mn-bento-card-title,
-  [data-mode="light"] .mn-bento-global-title,
   [data-mode="light"] .mn-bento-stat-number,
   [data-mode="light"] .mn-experience-heading,
   [data-mode="light"] .mn-exp-title,
@@ -1052,17 +1131,20 @@ const navItems = [
 
   .mn-hero-headline {
     font-family: var(--mn-font-display);
-    font-size: 3.75rem;
+    font-size: clamp(3rem, 8vw, 6rem);
     font-weight: 700;
     letter-spacing: -0.05em;
     line-height: 0.9;
     color: var(--mn-primary);
     margin: 0 0 3rem;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    min-height: 3.75rem;
+    white-space: nowrap;
   }
 
   @media (min-width: 768px) {
     .mn-hero-headline {
-      font-size: 6rem;
+      min-height: 6rem;
     }
   }
 
@@ -1289,6 +1371,7 @@ const navItems = [
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    min-height: 320px;
   }
 
   .mn-bento-strategy-title {
@@ -1297,6 +1380,7 @@ const navItems = [
     font-weight: 700;
     color: #ffffff;
     margin: 0 0 1.5rem;
+    transition: opacity 0.5s ease, transform 0.5s ease;
   }
 
   .mn-bento-strategy-desc {
@@ -1304,6 +1388,7 @@ const navItems = [
     line-height: 1.7;
     font-size: 1.125rem;
     margin: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease;
   }
 
   .mn-bento-strategy-stat {
@@ -1364,28 +1449,7 @@ const navItems = [
   /* Global reach card */
   .mn-bento-card--global {
     background-color: var(--mn-surface-container);
-    padding: 3rem;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .mn-bento-global-inner {
-    position: relative;
-    z-index: 10;
-  }
-
-  .mn-bento-global-title {
-    font-family: var(--mn-font-display);
-    font-size: 1.875rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0 0 1rem;
-  }
-
-  .mn-bento-global-desc {
-    color: var(--mn-on-surface-variant);
-    max-width: 28rem;
-    margin: 0;
+    padding: 2.5rem;
     line-height: 1.6;
   }
 
@@ -2089,7 +2153,7 @@ const navItems = [
     }
 
     .mn-hero-headline {
-      font-size: 3rem;
+      font-size: clamp(2rem, 8vw, 3rem);
     }
 
     .mn-contact-heading {
