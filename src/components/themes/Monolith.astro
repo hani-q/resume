@@ -34,13 +34,16 @@ const navItems = [
   <!-- Google Fonts & Material Symbols -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
 
   <!-- Fixed Top Navigation Bar -->
   <nav class="mn-topnav">
     <div class="mn-topnav-inner">
-      <a href="#profile" class="mn-topnav-logo">HQ</a>
+      <a href="#profile" class="mn-topnav-logo">
+        <span>{resume.name.split(" ")[0]}</span>
+        <span>{resume.name.split(" ")[1]}</span>
+      </a>
       <div class="mn-topnav-links">
         <a href="#profile" class="mn-topnav-link mn-topnav-link--active">Profile</a>
         <a href="#experience" class="mn-topnav-link">Experience</a>
@@ -55,10 +58,7 @@ const navItems = [
 
   <!-- Desktop Sidebar -->
   <aside class="mn-sidebar">
-    <div class="mn-sidebar-header">
-      <h1 class="mn-sidebar-name">{resume.name}</h1>
-      <p class="mn-sidebar-title">{resume.title}</p>
-    </div>
+    <div class="mn-sidebar-header"></div>
     <nav class="mn-sidebar-nav">
       {sidebarItems.map((item, i) => (
         <a href={item.href} class:list={["mn-sidebar-link", { "mn-sidebar-link--active": i === 0 }]}>
@@ -442,11 +442,15 @@ const navItems = [
   }
 
   .mn-topnav-logo {
-    font-family: var(--mn-font-display);
-    font-size: 1.5rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
     font-weight: 700;
-    letter-spacing: -0.05em;
+    letter-spacing: 0.01em;
     color: #ffffff !important;
+    text-decoration: none;
   }
 
   .mn-topnav-links {
@@ -526,7 +530,11 @@ const navItems = [
     font-weight: 900;
     color: #ffffff;
     margin: 0;
-    line-height: 1.3;
+    line-height: 1.1;
+  }
+
+  .mn-sidebar-name span {
+    display: block;
   }
 
   .mn-sidebar-title {
@@ -726,6 +734,7 @@ const navItems = [
   .mn-hero-photo-wrap {
     width: 100%;
     aspect-ratio: 4/5;
+    min-height: 250px;
     background-color: var(--mn-surface-container-low);
     overflow: hidden;
     position: relative;
