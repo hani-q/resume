@@ -1,5 +1,5 @@
 ---
-import { resume } from "../../data/resume";
+import { resume, rfc1925Truths } from "../../data/resume";
 
 const educationParts = resume.education.split("|").map((p: string) => p.trim());
 
@@ -110,9 +110,11 @@ const navItems = [
         <div class="mn-hero-row">
           <div class="mn-hero-text">
             <div class="mn-hero-summary" set:html={resume.overview.summary} />
-            <div class="mn-hero-actions">
-              <a href="#experience" class="mn-btn mn-btn--gradient">View Portfolio</a>
-              <a href="#contact" class="mn-btn mn-btn--outline">Resume</a>
+            <div class="mn-rfc-carousel" id="mn-rfc-carousel">
+              <blockquote class="mn-rfc-quote">
+                <p class="mn-rfc-text" id="mn-rfc-text"></p>
+                <cite class="mn-rfc-cite">— <a href="https://www.rfc-editor.org/rfc/rfc1925" target="_blank" rel="noopener noreferrer">The Twelve Networking Truths</a>, <span id="mn-rfc-number"></span></cite>
+              </blockquote>
             </div>
           </div>
           <div class="mn-hero-photo-wrap">
@@ -133,7 +135,7 @@ const navItems = [
             <p class="mn-bento-strategy-desc">Engineering Leader with deep expertise in Network Intelligence, Cloud Architecture, and Cyber Security. Building resilient systems that scale from startup to enterprise across global markets.</p>
           </div>
           <div class="mn-bento-strategy-stat">
-            <span class="mn-bento-strategy-number">15+</span>
+            <span class="mn-bento-strategy-number">18+</span>
             <span class="mn-bento-strategy-label">Years of Deep <br/> Engineering Expertise</span>
           </div>
         </div>
@@ -198,7 +200,7 @@ const navItems = [
         <div class="mn-skills-header">
           <div>
             <h2 class="mn-skills-heading">Technical Proficiency</h2>
-            <p class="mn-skills-subheading">A curated stack of modern technologies honed across 15+ years of engineering.</p>
+            <p class="mn-skills-subheading">A curated stack of modern technologies honed across 18+ years of engineering.</p>
           </div>
           <div class="mn-skills-watermark">SKILLS</div>
         </div>
@@ -364,6 +366,7 @@ const navItems = [
   </main>
 
   <!-- Theme Toggle Script (inline to prevent FOUC) -->
+  <script type="application/json" id="mn-rfc-data" set:html={JSON.stringify(rfc1925Truths)}></script>
   <script is:inline>
     (function() {
       var STORAGE_KEY = 'mn-theme-mode';
@@ -403,6 +406,42 @@ const navItems = [
         window.print();
       }
 
+      // RFC 1925 carousel
+      var rfcTruths = JSON.parse(document.getElementById('mn-rfc-data').textContent);
+      var rfcIndex = Math.floor(Math.random() * rfcTruths.length);
+
+      function showRfcTruth(index, animate) {
+        var textEl = document.getElementById('mn-rfc-text');
+        var numEl = document.getElementById('mn-rfc-number');
+        var quoteEl = document.querySelector('.mn-rfc-quote');
+        if (!textEl || !numEl || !quoteEl) return;
+        var truth = rfcTruths[index];
+
+        if (!animate) {
+          textEl.textContent = truth.text;
+          numEl.textContent = '#' + truth.number;
+          return;
+        }
+
+        // Slide out to top
+        quoteEl.classList.add('mn-rfc--exit');
+        setTimeout(function() {
+          textEl.textContent = truth.text;
+          numEl.textContent = '#' + truth.number;
+          // Position below, then slide in
+          quoteEl.classList.remove('mn-rfc--exit');
+          quoteEl.classList.add('mn-rfc--enter');
+          // Force reflow
+          void quoteEl.offsetHeight;
+          quoteEl.classList.remove('mn-rfc--enter');
+        }, 500);
+      }
+
+      function nextRfcTruth() {
+        rfcIndex = (rfcIndex + 1) % rfcTruths.length;
+        showRfcTruth(rfcIndex, true);
+      }
+
       // Attach events
       document.addEventListener('DOMContentLoaded', function() {
         var toggle = document.getElementById('mn-theme-toggle');
@@ -419,6 +458,10 @@ const navItems = [
             }
           });
         }
+
+        // Initialize and start RFC carousel
+        showRfcTruth(rfcIndex, false);
+        setInterval(nextRfcTruth, 10000);
       });
     })();
   </script>
@@ -955,6 +998,52 @@ const navItems = [
   .mn-hero-summary a {
     text-decoration: underline;
     text-underline-offset: 2px;
+  }
+
+  .mn-rfc-carousel {
+    border-left: 2px solid var(--mn-outline-variant);
+    padding-left: 1.25em;
+    margin: 1.5rem 0 2rem;
+    overflow: hidden;
+  }
+
+  .mn-rfc-quote {
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
+
+  .mn-rfc-quote.mn-rfc--exit {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  .mn-rfc-quote.mn-rfc--enter {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  .mn-rfc-text {
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--mn-on-surface);
+    opacity: 0.8;
+    margin: 0 0 0.5rem;
+  }
+
+  .mn-rfc-cite {
+    font-style: normal;
+    font-size: 0.85rem;
+    color: var(--mn-on-surface-variant);
+  }
+
+  .mn-rfc-cite a {
+    color: var(--mn-on-surface-variant);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .mn-rfc-cite a:hover {
+    color: var(--mn-on-surface);
   }
 
   .mn-hero-actions {
@@ -1871,6 +1960,7 @@ const navItems = [
     .mn-fab,
     .mn-hero-headline,
     .mn-hero-label,
+    .mn-rfc-carousel,
     .mn-contact {
       display: none !important;
     }

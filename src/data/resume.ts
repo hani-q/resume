@@ -1,3 +1,21 @@
+export const rfc1925Truths = [
+  { number: "2", text: "No matter how hard you push and no matter what the priority, you can't increase the speed of light." },
+  { number: "3", text: "With sufficient thrust, pigs fly just fine. However, this is not necessarily a good idea. It is hard to be sure where they are going to land, and it could be dangerous sitting under them as they fly overhead." },
+  { number: "4", text: "Some things in life can never be fully appreciated nor understood unless experienced firsthand. Some things in networking can never be fully understood by someone who neither builds commercial networking equipment nor runs an operational network." },
+  { number: "5", text: "It is always possible to aglutenate multiple separate problems into a single complex interdependent solution. In most cases this is a bad idea." },
+  { number: "6", text: "It is easier to move a problem around (for example, by moving the problem to a different part of the overall network architecture) than it is to solve it." },
+  { number: "6a", text: "It is always possible to add another level of indirection." },
+  { number: "7", text: "It is always something." },
+  { number: "7a", text: "Good, Fast, Cheap: Pick any two (you can't have all three)." },
+  { number: "8", text: "It is more complicated than you think." },
+  { number: "9", text: "For all resources, whatever it is, you need more." },
+  { number: "9a", text: "Every networking problem always takes longer to solve than it seems like it should." },
+  { number: "10", text: "One size never fits all." },
+  { number: "11", text: "Every old idea will be proposed again with a different name and a different presentation, regardless of whether it works." },
+  { number: "11a", text: "See rule 6a." },
+  { number: "12", text: "In protocol design, perfection has been reached not when there is nothing left to add, but when there is nothing left to take away." },
+];
+
 export const resume = {
   name: "Hani Quraishi",
   title: "Engineering Leader & Solutions Architect",
@@ -10,9 +28,9 @@ export const resume = {
 
   overview: {
     summary:
-      'Engineering Leader & Solutions Architect with 15+ years of experience in Network Intelligence, Cloud Architecture, and Cyber Security. <a href="https://www.rfc-editor.org/rfc/rfc1925" class="underline hover:text-blue-500">RFC1925</a>-compatible developer (Truth #11: Every old idea will be proposed again with a different name and a different presentation, regardless of whether it works).',
+      'Engineering Leader & Solutions Architect with 18+ years of experience in Network Intelligence, Cloud Architecture, and Cyber Security. An <a href="https://www.rfc-editor.org/rfc/rfc1925" target="_blank" rel="noopener noreferrer" class="underline hover:text-blue-500">RFC 1925</a>-compatible engineer.',
     highlights: [
-      "Currently leading engineering teams at DNI Dubai, focusing on Network Intelligence and Cyber Security solutions using DPDK, AI/ML, and Cloud technologies",
+      "Currently leading Application, DevSecOps, and Agentic Software Engineering teams at DNI Dubai, driving AI-assisted development practices and Network Intelligence solutions",
       "Extensive experience in DPI, Network Analytics, and Cloud Solutions with proven track record at Sandvine and PLUMgrid (acquired by VMware)",
       "Strong background in Cloud Architecture with triple AWS certifications and expertise in DevSecOps, MLOps, and Infrastructure as Code",
       "Proven leadership experience managing cross-functional teams and establishing Centers of Excellence",
@@ -48,17 +66,18 @@ export const resume = {
 
   experience: [
     {
-      title: "Head of Engineering",
+      title: "Head of Engineering — Application, DevSecOps & Agentic Software Engineering",
       company: "Dynamic Network Intelligence (DNI)",
       location: "Dubai, UAE (Hybrid)",
       period: "October 2023 - Present",
       bullets: [
-        "Leading multiple engineering teams including FullStack, DPDK, AI/ML, and DevSecOps in a fast-paced startup environment.",
-        "Overseeing the development of Network Intelligence and Cyber Security solutions.",
-        "Managing and coordinating cross-functional teams to deliver high-performance networking solutions.",
-        "Implementing AI/ML driven network analysis and security monitoring systems.",
-        "Establishing DevSecOps practices and security-first development workflows.",
-        "Architecting high-performance network solutions using DPDK for optimized packet processing.",
+        "Leading Application Engineering, DevSecOps, and Agentic Software Engineering teams in a fast-paced startup building Network Intelligence and Cyber Security solutions.",
+        "Spearheading the adoption of Agentic Software Engineering practices across the engineering organization, establishing safe usage guidelines and best practices for AI-assisted development.",
+        "Driving integration of agentic coding tools including Claude Code, OpenAI Codex, and self-hosted models via open-source harnesses such as OpenCode for developer productivity.",
+        "Deploying OpenClaw to automate key engineering roles and workflows, reducing manual overhead and accelerating delivery cycles.",
+        "Establishing DevSecOps practices with security-first development workflows, CI/CD pipelines, and infrastructure as code.",
+        "Overseeing the development of high-performance network solutions using DPDK, AI/ML-driven network analysis, and real-time security monitoring systems.",
+        "Managing and coordinating cross-functional teams to deliver scalable, production-grade networking and cyber security products.",
       ],
     },
     {
