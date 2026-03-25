@@ -8,7 +8,7 @@
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: dark light;
 }
 
 html, body {
@@ -19,6 +19,14 @@ html, body {
   background-color: #131313;
   color: #e2e2e2;
   font-family: "Inter", sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+[data-mode="light"] html,
+[data-mode="light"] body,
+html:has([data-mode="light"]) body {
+  background-color: #fafaf8;
+  color: #1a1a19;
 }
 
 /* Print styles for PDF */
